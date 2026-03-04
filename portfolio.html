@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сергей Нохрин — портфолио</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #ffffff;
+            padding: 0 0 96px 0;
+            margin: 0;
+            color: #000000;
+            cursor: url('images/cursor.png'), auto;
+            position: relative;
+        }
+
+        /* Лёгкий белый градиент снизу экрана */
+        .bottom-fade {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 240px;
+            pointer-events: none;
+            z-index: 10;
+            background: linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+            transition: opacity 0.25s ease;
+        }
+
+        .bottom-fade.is-hidden {
+            opacity: 0;
+        }
+
+        html {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Скрытие скроллбара на всём сайте (прокрутка сохраняется) */
+        * {
+            scrollbar-width: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        a, button, .image-frame, .career-item, .recommendation-card {
+            cursor: url('images/cursor.png'), pointer;
+        }
+
+
+        /* Site Header / Navigation */
+        .site-header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 4px 0;
+        }
+
+        .site-header.scrolled {
+            border-bottom: 1px solid #ebebeb;
+        }
+
+        .site-header-content {
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .site-header-profile {
+            position: absolute;
+            left: 0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .site-header.scrolled .site-header-profile {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .site-header-profile-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .site-header-profile-link:hover {
+            opacity: 0.85;
+        }
+
+        .site-header-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 24px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .site-header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .site-header-name {
+            font-weight: 600;
+            font-size: 16px;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-transform: none;
+            color: #000;
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .site-nav a {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: #000000;
+            text-decoration: none;
+            text-align: center;
+            transition: opacity 0.2s ease;
+            padding: 22px 12px;
+            min-height: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .site-nav a:hover {
+            opacity: 0.6;
+        }
+
+        .site-header-icons {
+            position: absolute;
+            right: 0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .site-header.scrolled .site-header-icons {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .site-header-btn {
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 1.25;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .site-header-btn:hover {
+            opacity: 0.9;
+        }
+
+        .site-header-btn-telegram {
+            background-color: #BA00DF;
+            color: #ffffff;
+        }
+
+        .site-header-btn-resume {
+            color: #BA00DF;
+            border: 1px solid #BA00DF;
+            background: transparent;
+        }
+
+        .site-header-burger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 100;
+            position: relative;
+        }
+
+        .site-header-burger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #000;
+            border-radius: 1px;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .site-header.is-menu-open .site-header-burger span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .site-header.is-menu-open .site-header-burger span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .site-header.is-menu-open .site-header-burger span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .site-header-menu {
+            display: none;
+        }
+
+        .container {
+            width: 1440px;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            overflow-x: visible;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        .header {
+            margin: 0 auto;
+            padding: 32px 0 0 0;
+            margin-bottom: 32px;
+        }
+
+        .header-hero-avatar {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            margin-top: 16px;
+            overflow: hidden;
+            flex-shrink: 0;
+            margin: 0 auto 24px;
+            background: #f4f4f4;
+        }
+
+        .header-hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 24px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-name {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 32px;
+            line-height: 36px;
+            color: #000000;
+        }
+
+        .header-title {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 53.34375px;
+            color: #000000;
+            opacity: 0.32;
+        }
+
+        .header h1 {
+            font-weight: 600;
+            font-size: 50px;
+            line-height: 60px;
+            color: #000000;
+            text-align: center;
+            margin: 0;
+        }
+
+        .header-subtitle {
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 31.2px;
+            color: #000000;
+            opacity: 0.72;
+            margin-top: 16px;
+        }
+
+        .header-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .header-btn-telegram {
+            background-color: #BA00DF;
+            color: #ffffff;
+            padding: 16px 24px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.25;
+        }
+
+        .header-btn-telegram:hover {
+            opacity: 0.9;
+        }
+
+        .header-btn-resume {
+            color: #BA00DF;
+            border: 1px solid #BA00DF;
+            background: transparent;
+            padding: 16px 24px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.25;
+        }
+
+        .header-btn-resume:hover {
+            opacity: 0.9;
+        }
+
+        .header-logos-label {
+            margin-top: 72px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: #999999;
+            text-align: center;
+        }
+
+        .header-logos {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 72px;
+            margin-top: 32px;
+        }
+
+        .header-logos img {
+            height: 64px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+
+        .header h1 .italic,
+        .header h1 .normal {
+            font-style: normal;
+        }
+
+        /* Images Section */
+        .images-section {
+            overflow-x: hidden;
+            overflow-y: hidden;
+            padding: 0;
+            margin-bottom: 0;
+            margin-top: 64px;
+            position: relative;
+            z-index: 1;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+
+        .images-section-heading {
+            margin-bottom: 0;
+        }
+
+        .images-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 32px 0;
+        }
+
+        .images-section-wrapper {
+            display: flex;
+            gap: 16px;
+            animation: scroll 51s linear infinite;
+            width: fit-content;
+            will-change: transform;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-400px * 11 - 16px * 10));
+            }
+        }
+
+        .image-frame {
+            width: 400px;
+            height: 560px;
+            min-width: 400px;
+            border-radius: 32px;
+            background-color: #f4f4f4;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            cursor: pointer;
+            padding: 24px 24px 0 24px;
+            box-sizing: border-box;
+        }
+
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f4f4f4 0%, #e0e0e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 18px;
+        }
+
+        /* Cases Section */
+        .cases-section {
+            margin: 64px auto 64px;
+            padding: 0;
+        }
+
+        .cases-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 32px 0;
+        }
+
+        .cases-articles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px 32px;
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .cases-article-card {
+            width: calc((100% - 64px) / 3);
+            min-width: 0;
+            cursor: pointer;
+        }
+
+        .cases-article-image-wrap {
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            aspect-ratio: 720/400;
+        }
+
+        .cases-article-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .cases-article-card:hover .cases-article-image-wrap img {
+            transform: scale(1.05);
+        }
+
+        .cases-article-card:hover .cases-article-link {
+            font-weight: 600;
+        }
+
+        .cases-article-descriptor {
+            display: block;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 100%;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: #999999;
+            margin: 0 0 6px 0;
+        }
+
+        .cases-article-title {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 1.35;
+            color: #000000;
+            margin: 0 0 8px 0;
+        }
+
+        .cases-article-text {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #000000;
+            opacity: 0.8;
+            margin: 0 0 12px 0;
+            display: none;
+        }
+
+        .cases-article-link {
+            font-weight: 500;
+            font-size: 16px;
+            color: #BA00DF;
+            text-decoration: none;
+        }
+
+        .cases-article-link:hover {
+            opacity: 0.9;
+        }
+
+        .cases-article-link .link-arrow {
+            display: inline-block;
+            transition: margin-left 0.2s ease;
+        }
+
+        .cases-article-link:hover .link-arrow,
+        .cases-article-card:hover .link-arrow {
+            margin-left: 2.5em;
+        }
+
+        @media (max-width: 768px) {
+            .cases-article-card {
+                width: 100%;
+            }
+        }
+
+        /* Case article popup */
+        .case-popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .case-popup-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* При открытом попапе скролл только внутри .case-popup-body */
+        html.popup-open {
+            overflow: hidden;
+        }
+
+        .case-popup {
+            background: #fff;
+            border-radius: 32px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .case-popup-image-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 720/400;
+            background: #f4f4f4;
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+
+        .case-popup-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .case-popup-body {
+            padding: 24px 24px 40px;
+            overflow-y: auto;
+            flex: 1 1 auto;
+            min-height: 0;
+            scrollbar-width: none;
+        }
+
+        @supports (overflow: overlay) {
+            .case-popup-body {
+                overflow-y: overlay;
+            }
+        }
+
+        .case-popup-body::-webkit-scrollbar {
+            display: none;
+            width: 0;
+        }
+
+        .case-popup-title {
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 1.35;
+            color: #000;
+            margin: 0 0 20px 0;
+        }
+
+        .case-popup-text {
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #000;
+            opacity: 0.9;
+        }
+
+        .case-popup-text p {
+            margin: 0 0 16px 0;
+        }
+
+        .case-popup-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .case-popup-text ol,
+        .case-popup-text ul {
+            margin: 0 0 16px 0;
+            padding-left: 2em;
+            list-style-position: outside;
+        }
+
+        .case-popup-text ol {
+            list-style-type: decimal !important;
+            list-style: decimal outside none !important;
+        }
+
+        .case-popup-text ul {
+            list-style-type: disc !important;
+            list-style: disc outside none !important;
+        }
+
+        .case-popup-text li {
+            margin-bottom: 6px;
+            padding-left: 0.25em;
+        }
+
+        .case-popup-text .case-popup-inline-image {
+            margin: 16px 0;
+            cursor: pointer;
+        }
+
+        .case-popup-text .case-popup-inline-image img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .case-popup-divider {
+            height: 1px;
+            background: #EBEBEB;
+            margin: 32px 0 24px 0;
+            border: none;
+        }
+
+        .case-popup-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .case-popup-nav-link {
+            font-weight: 500;
+            font-size: 16px;
+            color: #BA00DF;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25em;
+        }
+
+        .case-popup-nav-link:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .case-popup-nav-link .link-arrow {
+            display: inline-block;
+            transition: margin-left 0.2s ease;
+        }
+
+        .case-popup-nav-link--next:hover:not(:disabled) .link-arrow {
+            margin-left: 2.5em;
+        }
+
+        .case-popup-nav-link--prev .link-arrow {
+            order: -1;
+            transition: margin-right 0.2s ease;
+        }
+
+        .case-popup-nav-link--prev:hover:not(:disabled) .link-arrow {
+            margin-right: 2.5em;
+        }
+
+        .case-popup-nav-link:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .case-popup-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1;
+            color: #000;
+            z-index: 2010;
+            transition: background 0.2s ease;
+        }
+
+        .case-popup-close:hover {
+            background: #fff;
+        }
+
+        .case-popup-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        /* Лайтбокс для картинок в кейсах */
+        .image-lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .image-lightbox-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .image-lightbox-overlay .case-popup-close {
+            z-index: 10;
+        }
+
+        .image-lightbox-content {
+            overflow: auto;
+            max-height: 100vh;
+            max-width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .image-lightbox-overlay img {
+            max-width: 100%;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .image-lightbox-overlay.is-tall .image-lightbox-content {
+            overflow: auto;
+            align-items: flex-start;
+        }
+
+        .image-lightbox-overlay.is-tall img {
+            width: 1440px;
+            max-width: 100%;
+            height: auto;
+            max-height: none;
+        }
+
+        /* Careers Section */
+        .careers-section {
+            margin: 0 auto;
+            padding: 0;
+            margin-bottom: 64px;
+            text-align: center;
+        }
+
+        .careers-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 24px 0;
+        }
+
+        .careers-list {
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 0;
+            box-sizing: border-box;
+        }
+
+        .career-item:first-child .career-period {
+            background: linear-gradient(90deg, #c1c6d1 0%, #44967c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .career-item {
+            margin-bottom: 0;
+        }
+
+        .career-item:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+        .career-item::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: #ebebeb;
+            margin: 16px auto;
+        }
+
+        .career-period {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.25;
+            color: #c1c6d1;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .career-position {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 1.25;
+            color: #000000;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .career-position a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .career-description {
+            display: none;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.4;
+            color: #7788ad;
+            margin-top: 8px;
+        }
+
+        .career-description ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .career-description li {
+            margin-bottom: 4px;
+        }
+
+        .career-description li:before {
+            content: "- ";
+        }
+
+        /* Recommendations Section */
+        .recommendations-section {
+            margin: 0 auto;
+            padding: 0;
+            margin-bottom: 64px;
+        }
+
+        .recommendations-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 32px 0;
+        }
+
+        .recommendations-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 32px 32px;
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 0;
+            box-sizing: border-box;
+        }
+
+        .recommendation-card {
+            width: calc((100% - 32px) / 2);
+            min-width: 0;
+            flex-shrink: 0;
+            background-color: #f6f6f6;
+            border-radius: 32px;
+            padding: 32px;
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .recommendation-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 51.2px;
+            background-color: #ebebeb;
+            border: 1px solid #ebebeb;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .recommendation-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .recommendation-info {
+            flex: 1;
+        }
+
+        .recommendation-name {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 1.25;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+
+        .recommendation-title {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 22.2265625px;
+            color: #000000;
+            opacity: 0.64;
+        }
+
+        .recommendation-email {
+            display: block;
+            margin-top: 6px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.4;
+            color: #BA00DF;
+            text-decoration: none;
+        }
+
+        .recommendation-email:hover {
+            text-decoration: underline;
+        }
+
+        .recommendation-text {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 140%;
+            color: #000000;
+            opacity: 0.8;
+        }
+
+        .recommendation-text p {
+            margin: 0;
+        }
+
+        .recommendation-text p + p {
+            margin-top: 16px;
+        }
+
+        .site-footer {
+            width: 100%;
+            margin-top: 56px;
+        }
+
+        .site-footer-divider {
+            width: 100%;
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 0 0 24px 0;
+        }
+
+        .site-footer-text {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.4;
+            color: #ebebeb;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 1921px) {
+            .container {
+                max-width: 1440px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .header h1 {
+                font-size: 48px;
+                line-height: 72px;
+            }
+
+            .image-frame {
+                width: 320px;
+                min-width: 320px;
+                height: 448px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+                box-sizing: border-box;
+            }
+
+            .site-header {
+                height: auto;
+                padding: 12px 20px;
+            }
+
+            .site-header-content {
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0;
+                padding: 0;
+            }
+
+            .site-header-profile {
+                order: 1;
+                position: static;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .site-header-burger {
+                display: flex;
+                order: 2;
+            }
+
+            .site-nav {
+                display: none;
+            }
+
+            .site-header-icons {
+                display: none;
+            }
+
+            .site-header-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100vw;
+                height: 100vh;
+                min-height: 100dvh;
+                background: #FFFFFF;
+                z-index: 9999;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+                padding: 80px 24px 24px;
+                box-sizing: border-box;
+            }
+
+            body.site-menu-open .site-header-menu {
+                display: flex;
+            }
+
+            .site-header-menu-close {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                border: none;
+                background: none;
+                font-size: 32px;
+                line-height: 1;
+                color: #000;
+                cursor: pointer;
+                z-index: 10001;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .site-header-menu .site-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .site-header-menu .site-nav a {
+                font-size: 24px;
+                padding: 16px;
+                text-align: center;
+                min-height: auto;
+            }
+
+            .site-header-menu-cta {
+                display: flex;
+                justify-content: center;
+                margin-top: 24px;
+            }
+
+            .site-header-menu-cta .header-btn-telegram {
+                display: inline-block;
+                padding: 20px 24px;
+                border-radius: 16px;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 1.25;
+                text-decoration: none;
+            }
+
+            .site-header-name {
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .site-header-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 20px;
+            }
+
+            .site-header-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .header-profile {
+                width: 100%;
+            }
+
+            .header-title {
+                align-self: flex-end;
+            }
+
+            .header-name {
+                font-size: 36px;
+                line-height: 40px;
+            }
+
+            .header-title {
+                font-size: 36px;
+                line-height: 40px;
+            }
+
+            .header h1 {
+                font-size: 40px;
+                line-height: 56px;
+            }
+
+            .cases-section h2,
+            .careers-section h2,
+            .recommendations-section h2,
+            .images-section h2 {
+                font-size: 32px;
+                line-height: 40px;
+            }
+
+            .image-frame {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .career-period {
+                font-size: 16px;
+            }
+
+            .career-position {
+                font-size: 24px;
+            }
+
+            .career-description {
+                font-size: 16px;
+            }
+
+            .recommendations-list {
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .recommendation-card {
+                width: 100%;
+            }
+
+            .recommendation-name {
+                font-size: 24px;
+            }
+
+            .recommendation-title {
+                font-size: 18px;
+            }
+
+            .recommendation-text {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 32px;
+                line-height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bottom-fade" aria-hidden="true"></div>
+    <!-- Site Header / Navigation -->
+    <header class="site-header" id="siteHeader">
+        <div class="site-header-content">
+            <div class="site-header-profile">
+                <a href="#" class="site-header-profile-link" id="siteHeaderProfileLink" aria-label="Наверх">
+                    <div class="site-header-avatar">
+                        <img src="images/sergeyavatar.png" alt="Сергей Нохрин" onerror="this.style.display='none';">
+                    </div>
+                    <span class="site-header-name">Сергей Нохрин</span>
+                </a>
+            </div>
+            <button type="button" class="site-header-burger" id="siteHeaderBurger" aria-label="Меню" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="site-nav">
+                <a href="#cases">Кейсы</a>
+                <a href="#careers">Карьера</a>
+                <a href="#recommendations">Рекомендации</a>
+                <a href="#works">Работы</a>
+            </nav>
+            <div class="site-header-icons">
+                <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="site-header-btn site-header-btn-telegram">Написать мне</a>
+            </div>
+        </div>
+    </header>
+    <div class="site-header-menu" id="siteHeaderMenu" aria-hidden="true">
+        <button type="button" class="site-header-menu-close" id="siteHeaderMenuClose" aria-label="Закрыть меню">×</button>
+        <nav class="site-nav">
+            <a href="#cases">Кейсы</a>
+            <a href="#careers">Карьера</a>
+            <a href="#recommendations">Рекомендации</a>
+            <a href="#works">Работы</a>
+        </nav>
+        <div class="site-header-menu-cta">
+            <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="header-btn-telegram">Написать мне</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <section class="header">
+            <div class="header-top"></div>
+            <div class="header-hero-avatar">
+                <img src="images/sergeyavatar.png" alt="Сергей Нохрин" onerror="this.style.display='none';">
+            </div>
+            <h1>
+                <span class="normal">Привет, меня зовут Сергей Нохрин,</span><br>
+                <span class="normal header-secondary">проектирую интерфейсы уже более 5 лет</span>
+            </h1>
+            <div class="header-buttons">
+                <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="header-btn-telegram">Написать мне</a>
+                <a href="resume.pdf" download class="header-btn-resume">Скачать резюме в pdf</a>
+            </div>
+            <div class="header-logos-label">РАБОТАЛ В</div>
+            <div class="header-logos">
+                <img src="logos/aic.svg" alt="aic">
+                <img src="logos/1c.png" alt="1C">
+                <img src="logos/ToYou.svg" alt="ToYou">
+                <img src="logos/growthpet.svg" alt="Growth.pet">
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <!-- Секция кейсов -->
+        <section class="cases-section" id="cases">
+            <h2>Кейсы</h2>
+            <div class="cases-list">
+                <div class="cases-articles">
+                    <article class="cases-article-card">
+                        <div class="cases-article-image-wrap">
+                            <img src="images/case1.png" alt="">
+                        </div>
+                        <span class="cases-article-descriptor">Salebot</span>
+                        <h3 class="cases-article-title">Проще несмотря на минимализм в прошлом</h3>
+                        <p class="cases-article-text">Дорогие доработки платформы вынуждали нас на консистентные решения невозможные платформой</p>
+                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
+                        <div class="cases-article-full" hidden>
+                            <p>Это старая версия конструкора чат-ботов, которая имела кучу проблем, новые юзеры долго обучались или вообще пугались интерфейса и уходили к конкурентам или специальным разработчикам чат-ботов на нашей платформе.</p>
+                            <div class="case-popup-inline-image"><img src="images/case1screen1.png" alt=""></div>
+                            <p>По итогу исследований (коридорки, интервью, метрики) вывели ряд проблем:</p>
+                            <ul>
+                                <li>Нет полноценной визуализации связей</li>
+                                <li>Непонятна логика связей и логика работы блока из названий, что произойдет то?</li>
+                                <li>Не видно наполненности блока</li>
+                                <li>В правой панели все сливается</li>
+                            </ul>
+                            <p>В новой версии мы проработали блоки для нового юзера и старого, стали показывать связи блоков более нативно, добавили превью действия блока и др.</p>
+                            <div class="case-popup-inline-image"><img src="images/case1screen2.png" alt=""></div>
+                            <p>Также, изменений сильно коснулась правая панель, мы добавили семантическую группировку в панель и задали им мягкие пастельные тона с смысловой привязкой на фон чтобы было легче ориентироваться.</p>
+                            <p>Внутренность блока теперь формируется не автоматически под скрывающийся контент, а исходя из нужд в конкретно этом блоке, наполняя его через кнопки снизу.</p>
+                            <p>Главным результатом стало уменьшенное кол-во нажатий на блок без изменений (когда разработчик заходит в блок чтобы посмотреть наполнение) и общее уменьшение кол-во нажатий на стрелку связи.</p>
+                        </div>
+                    </article>
+                    <article class="cases-article-card">
+                        <div class="cases-article-image-wrap">
+                            <img src="images/case2.png" alt="">
+                        </div>
+                        <span class="cases-article-descriptor">ToYou</span>
+                        <h3 class="cases-article-title">Дизайн-подглядки: как и почему мы дорабатывали интерфейс техподдержки через веб-камеры</h3>
+                        <p class="cases-article-text">Менталитет Саудитов позволял показать только лучших респондентов для наших исследований, а мы стали смотреть за всеми через веб-камеры</p>
+                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
+                        <div class="cases-article-full" hidden>
+                            <p>Задачи бизнеса:</p>
+                            <ul>
+                                <li>Уменьшить количество неверной обработки тикета, возвраты по скрипту, но не по делу, лишние промокоды и пр.</li>
+                                <li>Сократить время на обработку тикета</li>
+                                <li>Сократить время на первый ответ клиенту (изучение тикета) без ответов в формате "Мы уже занимаемся вашим вопросом"</li>
+                            </ul>
+                            <p>Попытался провести стандартный ресерч в формате интервью с работниками техподдержки, чтобы после погенерить гипотезы. Но арабский и саудовский менталитеты предоставляли мне только лучших из лучших, кто закрывает тикеты быстро, не ошибается, получает регулярные премии. Нам показали идеальную картинку.</p>
+                            <p>Пришли к тому, что самое адекватное — guerrilla research.<br>Нагрумил разные решения от командировок, до работы в техподдержке удаленно. Все не подходило, слишком долго, а решение нужно сделать и выпустить за примерно 2 месяца. Стал думать дальше.</p>
+                            <p>В оупенспейсе техподдежки жёсткий регламент, стоят камеры, но запись обработки тикетов в виде записи сессии в системе не велась. Внедрить такое быстро не могли, долго, не успевали физически. Но ведь запись то есть, хоть и с веб-камер. Пошел просить разрешений у безопасников и русско-говорящих стейкхолдеров, заручился их поддержкой и согласовал такой формат исследования:</p>
+                            <ul>
+                                <li>Записи с веб-камер за самую нагруженную неделю (Первая неделя после рамадана)</li>
+                                <li>Текстовая расшифровка всех тикетов за ту неделю (с переводом с арабского и диалектов по необходимости)</li>
+                                <li>Сводная таблица неправильно проработанных тикетов (по итогу квартала эта метрика уже всегда собиралась для дообучения сотрудников)</li>
+                                <li>Неограниченный ресурс переводчиков</li>
+                            </ul>
+                            <p>Благо такое решение произвело положительное впечатление и мне выдали в помощь 2 арабо-говорящих аналитика и продакта на фуллтайм подмогу, поэтому переводчики и не понадобились. Интерфейс с веб-камер не было видно, поэтому приходилось сопоставлять сотрудника, рабочее место, дату и время тикета, логи тикета и запись с камеры.</p>
+                            <p>За 5 дней мы сопоставили и отсмотрели несколько сотен тикетов и записей, и вывели ряд повторяющихся ошибок:</p>
+                            <ul>
+                                <li>Даже расширенные скрипты не всегда помогали решить проблему</li>
+                                <li>Много информации, что требуется в работе – далеко запрятаны или недоступны вовсе.</li>
+                                <li>Сотрудник техподдержки долго изучает тикет</li>
+                                <li>Сотрудник не знает диалект и переводить на другого сотрудника – долго и требует чтобы руководитель перенес этот тикет сам</li>
+                                <li>И др.</li>
+                            </ul>
+                            <p>Ну и начали думать и проектировать, как это решить, разбили это на интерфейсные решения:</p>
+                            <ul>
+                                <li>Кнопка быстрого подключения старшего сотрудника к тикету, без переводов и согласований.</li>
+                                <li>Добавили больше информации на главную страницу, вывели туда прошлые возвраты и промокоды с быстрым переходом к тикету по которым они были произведены, чтобы избежать мошенников</li>
+                                <li>Запланировали подключение OpenAI, чтобы он типизировал тикеты (для начала). Поменяли поля в интерфейсе, чтобы информация о пользователе была отделена от информации о тикете, раньше было перемешано.</li>
+                                <li>п.3 с распознаванием диалекта на тот момент справлялся не очень, поэтому добавили кнопку перевода на сотрудников говорящих на другом диалекте, всем сотрудникам добавили языки и диалекты на которых говорят, в окне перевода показали эти же значения.</li>
+                            </ul>
+                            <p>По итогу этой фичи и нескольких других мы вот так повлияли на метрики:</p>
+                            <ul>
+                                <li>Уменьшен процент неверной обработки тикета с ~8% до ~1.4%.</li>
+                                <li>Сокращено среднее время обработки тикета с 18 минут до 12 минут, а в дальнейшем до 10.5 минут</li>
+                                <li>Снизилась среднюю стоимость обработки тикета с 1,3$ до 0,98$ без учета OpenAi тикетов, с их учетом 0,2$</li>
+                                <li>Время на первый ответ клиенту сокращено с 6 до 3 минут</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="cases-article-card">
+                        <div class="cases-article-image-wrap">
+                            <img src="images/case3.png" alt="">
+                        </div>
+                        <span class="cases-article-descriptor">ToYou</span>
+                        <h3 class="cases-article-title">Яркий интерфейс в солнечной стране вынудил выйти за рамки экрана</h3>
+                        <p class="cases-article-text">Как мы решали интерфейсные проблемы неинтерфейсными методами</p>
+                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
+                        <div class="cases-article-full" hidden>
+                            <p>Дорабатывая сервис для водителей такси и курьеров, я столкнулся с тем, что у нас не слишком светлая, но достаточно яркая палитра, которую просто не видели водители на солнце.</p>
+                            <p>Попытался поменять цвета в рамках того, что позволяла бренд-команда, но ничего не выходило. В Саудовской Аравии из 365 дней примерно 340 солнечных. Из-за этого водители не видели кнопок что не акцентные, с лёгкой заливкой, иконкой или текстом в бренд-свете.</p>
+                            <p>Долго грумил, чем могу помочь водителям, не меняя палитру. Самое классное решение — чёрные кнопки, но бренд не согласовал.</p>
+                            <p>Пошел ходить по улице с телефоном на солнце, очевидно, но заходишь в тень – все видно всегда.</p>
+                            <p>С этого начал генерить гипотезы: как создать пользователю "тень" на экране. Решил выйти за рамки экрана, решить проблему in real life, вне устройства и интерфейса. Согласовал такое нестандартное решение с стейками и пошел думать.</p>
+                            <p>Был вариант — увеличенные козырьки для автомобиля. Но водители используют разные машины: козырьки крепятся по-разному, поворачиваются в разные стороны, крепёж разной толщины. Не смогли оптимизировать даже под пять самых частых автомобилей у водителей. В Саудовской Аравии и странах вокруг (Иордании) физически невыполнимо заказать, а индивидуальный китай долго и дорого.</p>
+                            <p>Пришла аналогия из детства: в морской бой вырывали двойной листочек, делали "ноутбук" с закрывашкой сверху, снизу два поля боя, чтобы не видел соперник.</p>
+                            <p>Начали думать, как применить на смартфонах. Подглядели у киберспортсменов: на монитор крепятся "уши" по бокам, закрывают от чужих взглядов сидящих рядом.</p>
+                            <div class="case-popup-inline-image"><img src="images/case3monitor.png" alt=""></div>
+                            <p>Пришли к решению выдавать крепления смартфона на торпеду автомобиля с этими теневыми ушами которые адаптируются под размер смартфона по высоте и ширине как на электросамокатах например (такое же решение уже было в держателях для смартфонов на автомобиль). Нашли мелкое производство которое нам доработало теневые уши (заслонки), и выдавали крепежи водителям вместе с этими ушками. Водители рады, интерфейс работает лучше, просто потому что его ВИДНО.</p>
+                            <div class="case-popup-inline-image"><img src="images/case3caser.png" alt=""></div>
+                        </div>
+                    </article>
+                    <article class="cases-article-card">
+                        <div class="cases-article-image-wrap">
+                            <img src="images/case4.png" alt="">
+                        </div>
+                        <span class="cases-article-descriptor">Growth.pet</span>
+                        <h3 class="cases-article-title">Оптимизация каналов связи с клиентом</h3>
+                        <p class="cases-article-text">Клиенты пишут везде, но не везде их возможно распознать, как мы скрещивали мессенджеры и клиента</p>
+                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
+                        <div class="cases-article-full" hidden>
+                            <p>В груминг салонах часто один и тот же человек пишет с разных мессенджеров: WhatsApp, Facebook, Instagram. Важно сохранять привязку к пользователю, помнить, как зовут питомцев, какие болезни, ограничения, прививки у питомцев, каких прививок нет, когда были последние записи.</p>
+                            <p>Всё это нужно собрать в единую карточку клиента и привязать его соцсети, чтобы администратору было удобно работать.</p>
+                            <p>Я пришел к стандартному решению на рынке: слева список чатов, посередине окно чата, справа карточка клиента.</p>
+                            <p>В карточку клиента уже перенесены дополнительные сущности: питомцы, клички, фото питомцев, сторилайн со всеми записями, прививками и прочим.</p>
+                            <div class="case-popup-inline-image"><img src="images/case4screen1.png" alt=""></div>
+                            <div class="case-popup-inline-image"><img src="images/case4screen2.png" alt=""></div>
+                        </div>
+                    </article>
+                    <article class="cases-article-card">
+                        <div class="cases-article-image-wrap">
+                            <img src="images/case5.png" alt="">
+                        </div>
+                        <span class="cases-article-descriptor">1C</span>
+                        <h3 class="cases-article-title">Разделение двух дизайн-систем в продукте с 30тилетним легаси</h3>
+                        <p class="cases-article-text">Прийдя в 1С я столкнулся с главной проблемой, два движка отличаются технически, но должны сохранять максимально схожую структуру при абсолютно разных потребностях</p>
+                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
+                        <div class="cases-article-full" hidden>
+                            <p>Подробнее о данном кейсе я готов рассказать на звонке, ибо показать все не могу ввиду NDA.</p>
+                            <p>Придя в 1С, я столкнулся с большой проблемой — у нас два разных движка: стандартный движок 1С и движок Element для пользовательских решений, таких как интернет-магазины, не учетная система, а что-то попроще.</p>
+                            <p>Семь лет назад проектировался движок Element под современные реалии: воздушный дизайн, увеличенные отступы, красиво. Его нарисовали, начали выпускать.</p>
+                            <p>Решили переводить основной движок на эту дизайн-систему. Но спустя семь лет компания поняла, что не получается содержать их вместе. Нужно разделить две дизайн-системы.</p>
+                            <p>Столкнулись с рядом проблем, как технических: в коде элементы уже сильно отличаются, так и логическо-продуктовых: таблицы с 40 столбцами, которые скроллятся горизонтально, не объединить в карточку для мобильного клиента. В Element таблицы маленькие и адаптировались в мобильный клиент, а в обычном движке — нет, там таблицы огромные.</p>
+                            <p>Собрал запросы с дизайнеров из команд 1С, которые занимаются библиотечными продуктами 1С. Сформировал структуру.</p>
+                            <div class="case-popup-inline-image"><img src="images/case5a1.png" alt=""></div>
+                            <p>Эта структура позволила оптимизировать процесс, начать перевод дизайн-системы, сформировали план.</p>
+                            <p>Я сформировал план MVP</p>
+                            <div class="case-popup-inline-image"><img src="images/case5a2.png" alt=""></div>
+                            <p>После чего приступил к реализации со стороны основного движка. Сейчас дизайн-система практически полностью разделена и готова к работе новыми дизайнерами. Параллельно вводил новые фичи, дополнительные компоненты, оптимизировал компоненты, убирал лишние инстансы и варианты, формировал более простую дизайн-систему для работы дизайнеров (сократил с 1400 вариантов компонентов до ~120). Выстраивал процесс работы с художниками иконок и иллюстраций для дизайн-системы.</p>
+                        </div>
+                    </article>
+                    <article class="cases-article-card">
+                        <div class="cases-article-image-wrap">
+                            <img src="images/case6.png" alt="">
+                        </div>
+                        <span class="cases-article-descriptor">Growth.pet</span>
+                        <h3 class="cases-article-title">Организация управления груминг салоном через физические возможности грумера</h3>
+                        <p class="cases-article-text">Как я спасал грумеров от тяжелых собак, которых они физически не могут постричь</p>
+                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
+                        <div class="cases-article-full" hidden>
+                            <p>В продукте Growth.pet мы исследовали рынок записи в груминг салоны и работу грумеров в формате интервью и вывели очень нестандартную проблему.</p>
+                            <p>Некоторые грумеры не могут брать некоторых питомцев. Например: приходит клиент с 45 кг алабаем на процедуру, а девочка грумер ростом 160 см и весом 50 кг физически не сможет его поднять на стол, не то что держать во время процедуры.</p>
+                            <p>И мы вывели потребность: Не давать записывать питомцов с определенными параметрами к определенным грумерам.<br>Мы пошли несколькими путями. В первой версии ввели максимальный вес питомца, который может обслуживать эта девочка.</p>
+                            <p>Пришлось помимо добавления полей в админке перебирать и flow записи со стороны клиента.</p>
+                            <p>Мы изменили подход и сделали упор на питомца, а не клиента, т.е. в приложении flow записи стартовал от питомца, дабы сразу в предложениях о записи отметать недоступных грумеров.</p>
+                            <div class="case-popup-inline-image"><img src="images/case6mobile1.png" alt=""></div>
+                            <div class="case-popup-inline-image"><img src="images/case6mobile2.png" alt=""></div>
+                            <div class="case-popup-inline-image"><img src="images/case6screen1.png" alt=""></div>
+                            <div class="case-popup-inline-image"><img src="images/case6screen2.png" alt=""></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция карьеры -->
+        <section class="careers-section" id="careers">
+            <h2>Карьера</h2>
+            <div class="careers-list" id="careers-list">
+                <div class="career-item">
+                    <div class="career-period">Февраль 2025 — по настоящее время</div>
+                    <div class="career-position"><a href="https://v8.1c.ru/platforma/new-ui-85/" target="_blank" rel="noopener noreferrer">aic (1C)</a></div>
+                    <div class="career-description">Работаю над рефакторингом дизайн‑системы и проектированием ключевых решений для крупного релиза системы и глобального обновления</div>
+                </div>
+
+                <div class="career-item">
+                    <div class="career-period">Август 2023 — Февраль 2025</div>
+                    <div class="career-position"><a href="https://toyou.io/" target="_blank" rel="noopener noreferrer">ToYou (Саудовская Аравия)</a></div>
+                    <div class="career-description">
+                        <ul>
+                            <li>Спроектировал новый лендинг с серверной SEO‑адаптивностью</li>
+                            <li>Сократил количество заявок, обрабатываемых службой поддержки вручную</li>
+                            <li>Снизил среднюю стоимость обработки тикета с 1,3$ до примерно 0,2$</li>
+                            <li>Реализовал отображение аллергенов и пищевой ценности продуктов в каталоге BX</li>
+                            <li>Сделал ряд фич для курьеров: тепловую карту, мультиточки и другое</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="career-item">
+                    <div class="career-period">Апрель 2023 — Август 2023</div>
+                    <div class="career-position">Growth.pet</div>
+                    <div class="career-description">
+                        <ul>
+                            <li>Улучшил поток работы администратора салона</li>
+                            <li>Создал кросс‑канальный мессенджер для администрирования салона</li>
+                            <li>Спроектировал теговую модель клиента и масштабировал её на все ключевые потоки</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="career-item">
+                    <div class="career-period">Ноябрь 2022 — Апрель 2023</div>
+                    <div class="career-position"><a href="https://salebot.pro/" target="_blank" rel="noopener noreferrer">Salebot</a></div>
+                    <div class="career-description">
+                        <ul>
+                            <li>Занимался исследованием и редизайном конструктора чат‑ботов</li>
+                            <li>Спроектировал новую вертикаль продукта: конструктор образовательных курсов</li>
+                            <li>Улучшил чат платформы и оконную версию на стороне пользователя</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="career-item">
+                    <div class="career-period">Февраль 2021 — Ноябрь 2022</div>
+                    <div class="career-position"><a href="https://mosreg.ru/" target="_blank" rel="noopener noreferrer">Правительство Московской области</a></div>
+                    <div class="career-description">
+                        <ul>
+                            <li>Вёл несколько систем ЕАСУЗ для горожан</li>
+                            <li>Увеличил суммарное количество заявок на тендеры через систему</li>
+                            <li>Добавил больше информации по каждому тендеру, чтобы усилить контроль со стороны граждан</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция рекомендаций -->
+        <section class="recommendations-section" id="recommendations">
+            <h2>Рекомендации коллег</h2>
+            <div class="recommendations-list" id="recommendations-list">
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="recommendation-avatar">
+                            <img src="images/ekaterinaavatar.png" alt="Ekaterina Zhulkova" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #c1c6d1 0%, #7788ad 100%); display: none;"></div>
+                        </div>
+                        <div class="recommendation-info">
+                            <div class="recommendation-name">Ekaterina Zhulkova</div>
+                            <div class="recommendation-title">Director of Operations in Tech @ ToYou</div>
+                            <a href="mailto:e.zhulkova@arammeem.com" class="recommendation-email">e.zhulkova@arammeem.com</a>
+                        </div>
+                    </div>
+                    <div class="recommendation-text">
+                        <p>Нохрин Сергей работал под моим руководством как Senior Product Designer в команде Operations в ToYou (Aram Meem LLC). За почти два года работы с нами Сергей постоянно демонстрировал высокий уровень профессионализма, креативности и вовлечённости в создание пользовательских решений. Его работа заметно повлияла как на внутренние операционные процессы, так и на общий пользовательский опыт. Он был активным сторонником подхода, что улучшение UX внутренних систем напрямую усиливает клиентский опыт (CX), и последовательно применял это на практике.</p>
+                        <p style="margin-top: 16px;">Одна из ключевых сильных сторон Сергея — глубокое техническое понимание того, как работает продукт «под капотом», благодаря чему взаимодействие с разработчиками было особенно эффективным. Многие инженеры отмечали, насколько легко и приятно работать с его макетами: они были понятными, последовательными и технически реализуемыми. Это редкое сочетание сильного дизайна, технического бэкграунда и понимания бизнеса сделало Сергея важным мостом между дизайном, разработкой и продуктом. Кроме того, у Сергея отлично развита эмпатия к пользователям — будь то курьер на линии или специалист поддержки, разбирающийся со сложной заявкой. Его способность учитывать потребности разных групп пользователей значительно усилила общий UX продукта.</p>
+                        <p style="margin-top: 16px;">Его коммуникативные навыки и внимательное отношение к обратной связи сделали Сергея очень уважаемым и ценным членом команды. Команда до сих пор вспоминает его и результаты его работы. Уверена, что Сергей принесёт такой же высокий уровень экспертизы и профессионализма в любую компанию, к которой присоединится.</p>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="recommendation-avatar">
+                            <img src="images/dmitiryavatar.png" alt="Dmitry Savich" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #c1c6d1 0%, #7788ad 100%); display: none;"></div>
+                        </div>
+                        <div class="recommendation-info">
+                            <div class="recommendation-name">Dmitry Savich</div>
+                            <div class="recommendation-title">Product Owner @ ToYou</div>
+                            <a href="mailto:dima@savich.me" class="recommendation-email">dima@savich.me</a>
+                        </div>
+                    </div>
+                    <div class="recommendation-text">
+                        <p>Я с удовольствием рекомендую Сергея Нохрина, который почти два года работал Senior Product Designer в ToYou (Aram Meem LLC). За это время мы плотно сотрудничали в команде BX (Business Experience).</p>
+                        <p style="margin-top: 16px;">Мы вместе делали довольно сложные фичи, особенно вокруг продуктового каталога, и вклад Сергея был критически важен для их успеха. У него есть редкий навык — превращать сложные требования в дизайны, которые одновременно и понятны пользователю, и удобны для разработки. Разработчики в команде не раз отмечали, насколько легко реализовывать его решения: всё структурировано, логично и технически выполнимо.</p>
+                        <p style="margin-top: 16px;">На самом деле, даже сейчас, когда мы работаем над новыми задачами, в команде до сих пор звучат фразы вроде: «Сергей бы это классно сделал» или «Вот это — прям история уровня Сергея». Его планка по качеству работы до сих пор задаёт ориентир, и влияние его вклада ощутимо до сих пор.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Images Section - Full Width (Карусель) -->
+    <section class="images-section" id="works">
+            <div class="container images-section-heading">
+                <h2>Работы</h2>
+            </div>
+            <div class="images-section-wrapper">
+                <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
+                <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
+                <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
+                <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
+                <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
+                <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
+                <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
+                <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
+                <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
+                <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
+                <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
+                <!-- Дублируем для бесшовного скролла -->
+                <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
+                <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
+                <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
+                <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
+                <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
+                <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
+                <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
+                <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
+                <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
+                <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
+                <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <hr class="site-footer-divider">
+            <p class="site-footer-text">Портфолио, Сергей Нохрин, 2026 г.</p>
+        </footer>
+    </div>
+
+    <!-- Popup статьи кейса -->
+    <div class="case-popup-overlay" id="casePopupOverlay" aria-hidden="true">
+        <button type="button" class="case-popup-close" id="casePopupClose" aria-label="Закрыть">×</button>
+        <div class="case-popup" role="dialog" aria-modal="true" aria-labelledby="casePopupTitle">
+            <div class="case-popup-wrapper">
+                <div class="case-popup-body">
+                    <div class="case-popup-image-wrap">
+                        <img id="casePopupImage" src="" alt="">
+                    </div>
+                    <h2 class="case-popup-title" id="casePopupTitle"></h2>
+                    <div class="case-popup-text" id="casePopupText"></div>
+                    <hr class="case-popup-divider">
+                    <nav class="case-popup-nav">
+                        <button type="button" class="case-popup-nav-link case-popup-nav-link--prev" id="casePopupPrev" disabled><span class="link-arrow">🠐</span> Предыдущий кейс</button>
+                        <button type="button" class="case-popup-nav-link case-popup-nav-link--next" id="casePopupNext">Следующий кейс <span class="link-arrow">🠒</span></button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Лайтбокс картинок в кейсах -->
+    <div class="image-lightbox-overlay" id="imageLightboxOverlay">
+        <button type="button" class="case-popup-close image-lightbox-close" id="imageLightboxClose" aria-label="Закрыть">×</button>
+        <div class="image-lightbox-content" id="imageLightboxContent">
+            <img id="imageLightboxImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        // Popup кейса: открытие по клику на карточку
+        (function () {
+            const overlay = document.getElementById('casePopupOverlay');
+            const closeBtn = document.getElementById('casePopupClose');
+            const popupImage = document.getElementById('casePopupImage');
+            const popupTitle = document.getElementById('casePopupTitle');
+            const popupText = document.getElementById('casePopupText');
+            const prevBtn = document.getElementById('casePopupPrev');
+            const nextBtn = document.getElementById('casePopupNext');
+            const cards = document.querySelectorAll('.cases-article-card');
+
+            let scrollbarTimeout = null;
+            let currentCardIndex = 0;
+            const popupBody = document.querySelector('.case-popup-body');
+
+            function openPopup(card) {
+                const index = Array.prototype.indexOf.call(cards, card);
+                if (index === -1) return;
+                currentCardIndex = index;
+                const img = card.querySelector('.cases-article-image-wrap img');
+                const titleEl = card.querySelector('.cases-article-title');
+                const fullEl = card.querySelector('.cases-article-full');
+                if (!titleEl) return;
+                popupImage.src = img ? img.src : '';
+                popupImage.alt = titleEl.textContent;
+                popupTitle.textContent = titleEl.textContent;
+                popupText.innerHTML = fullEl ? fullEl.innerHTML : '';
+                if (prevBtn) {
+                    prevBtn.disabled = index <= 0;
+                }
+                if (nextBtn) {
+                    nextBtn.disabled = index >= cards.length - 1;
+                }
+                if (popupBody) {
+                    popupBody.classList.remove('is-scrolling');
+                    popupBody.scrollTop = 0;
+                }
+                document.documentElement.classList.add('popup-open');
+                document.body.style.overflow = 'hidden';
+                overlay.classList.add('is-open');
+                overlay.setAttribute('aria-hidden', 'false');
+            }
+
+            if (popupBody) {
+                popupBody.addEventListener('scroll', function () {
+                    popupBody.classList.add('is-scrolling');
+                    clearTimeout(scrollbarTimeout);
+                    scrollbarTimeout = setTimeout(function () {
+                        popupBody.classList.remove('is-scrolling');
+                    }, 800);
+                });
+            }
+
+            function closePopup() {
+                overlay.classList.remove('is-open');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.documentElement.classList.remove('popup-open');
+                document.body.style.overflow = '';
+            }
+
+            cards.forEach(function (card) {
+                card.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openPopup(card);
+                });
+            });
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (currentCardIndex > 0) openPopup(cards[currentCardIndex - 1]);
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (currentCardIndex < cards.length - 1) openPopup(cards[currentCardIndex + 1]);
+                });
+            }
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closePopup();
+            });
+            closeBtn.addEventListener('click', closePopup);
+
+            var imageLightboxOverlay = document.getElementById('imageLightboxOverlay');
+            var imageLightboxImage = document.getElementById('imageLightboxImage');
+            function openImageLightbox(src, fromBento) {
+                if (!imageLightboxImage || !imageLightboxOverlay) return;
+                imageLightboxOverlay.classList.remove('is-tall');
+                imageLightboxImage.style.width = '';
+                imageLightboxImage.onload = function () {
+                    imageLightboxImage.onload = null;
+                    if (!fromBento) return;
+                    var nw = imageLightboxImage.naturalWidth;
+                    var nh = imageLightboxImage.naturalHeight;
+                    if (!nw || !nh) return;
+                    var heightAt1440 = (1440 / nw) * nh;
+                    if (heightAt1440 > window.innerHeight) {
+                        imageLightboxOverlay.classList.add('is-tall');
+                    }
+                };
+                imageLightboxImage.src = src;
+                imageLightboxOverlay.classList.add('is-open');
+                if (imageLightboxImage.complete) imageLightboxImage.onload();
+            }
+            function closeImageLightbox() {
+                if (imageLightboxOverlay) {
+                    imageLightboxOverlay.classList.remove('is-open');
+                    imageLightboxOverlay.classList.remove('is-tall');
+                }
+                if (imageLightboxImage) imageLightboxImage.style.width = '';
+            }
+            if (popupBody) {
+                popupBody.addEventListener('click', function (e) {
+                    var img = e.target.closest('.case-popup-body img');
+                    if (!img) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openImageLightbox(img.src);
+                });
+            }
+            var imagesSection = document.querySelector('.images-section');
+            if (imagesSection) {
+                imagesSection.addEventListener('click', function (e) {
+                    var img = e.target.closest('.image-frame img');
+                    if (!img) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openImageLightbox(img.src, true);
+                });
+            }
+            if (imageLightboxOverlay) {
+                imageLightboxOverlay.addEventListener('click', function (e) {
+                    if (e.target === imageLightboxOverlay) closeImageLightbox();
+                });
+            }
+            var imageLightboxCloseBtn = document.getElementById('imageLightboxClose');
+            if (imageLightboxCloseBtn) {
+                imageLightboxCloseBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    closeImageLightbox();
+                });
+            }
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape') return;
+                if (imageLightboxOverlay && imageLightboxOverlay.classList.contains('is-open')) {
+                    closeImageLightbox();
+                } else if (overlay.classList.contains('is-open')) {
+                    closePopup();
+                }
+            });
+            document.addEventListener('touchmove', function (e) {
+                if (!overlay.classList.contains('is-open')) return;
+                if (popupBody && popupBody.contains(e.target)) return;
+                e.preventDefault();
+            }, { passive: false });
+        })();
+
+        // Добавление аватарки и имени в шапку при прокрутке
+        const siteHeader = document.getElementById('siteHeader');
+        const headerSection = document.querySelector('.header');
+        const headerButtons = document.querySelector('.header-buttons');
+        const bottomFade = document.querySelector('.bottom-fade');
+        const carouselSection = document.querySelector('.images-section');
+
+        function handleScroll() {
+            if (!headerSection) return;
+
+            // Показывать аватарку и кнопки в шапке после прокрутки мимо блока с кнопками
+            const triggerEl = headerButtons || headerSection;
+            const triggerBottom = triggerEl.getBoundingClientRect().bottom;
+            
+            if (triggerBottom < 0) {
+                siteHeader.classList.add('scrolled');
+            } else {
+                siteHeader.classList.remove('scrolled');
+            }
+
+            // Отключать нижнее рассеивание при прокрутке до карусели
+            if (bottomFade && carouselSection) {
+                const carouselRect = carouselSection.getBoundingClientRect();
+                if (carouselRect.top < window.innerHeight) {
+                    bottomFade.classList.add('is-hidden');
+                } else {
+                    bottomFade.classList.remove('is-hidden');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Проверяем при загрузке страницы
+
+        // Клик по аватарке и имени в шапке — прокрутка вверх
+        document.getElementById('siteHeaderProfileLink')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Бургер-меню на мобильных
+        const siteHeaderBurger = document.getElementById('siteHeaderBurger');
+        const siteHeaderMenu = document.getElementById('siteHeaderMenu');
+        function closeHeaderMenu() {
+            if (siteHeader) siteHeader.classList.remove('is-menu-open');
+            document.body.classList.remove('site-menu-open');
+            if (siteHeaderBurger) siteHeaderBurger.setAttribute('aria-expanded', 'false');
+            if (siteHeaderMenu) siteHeaderMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+        function openHeaderMenu() {
+            siteHeader.classList.add('is-menu-open');
+            document.body.classList.add('site-menu-open');
+            siteHeaderBurger.setAttribute('aria-expanded', 'true');
+            siteHeaderMenu.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+        siteHeaderBurger?.addEventListener('click', function () {
+            if (siteHeader.classList.contains('is-menu-open')) closeHeaderMenu();
+            else openHeaderMenu();
+        });
+        document.getElementById('siteHeaderMenuClose')?.addEventListener('click', closeHeaderMenu);
+        siteHeaderMenu?.querySelectorAll('.site-nav a').forEach(function (a) {
+            a.addEventListener('click', closeHeaderMenu);
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && siteHeader?.classList.contains('is-menu-open')) closeHeaderMenu();
+        });
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107062747', 'ym');
+
+        ym(107062747, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/107062747" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+</body>
+</html>
+

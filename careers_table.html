@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карьера — таблица</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #ffffff;
+            padding: 40px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 64px;
+            color: #000000;
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        thead {
+            background-color: #f6f6f6;
+        }
+
+        th {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 24px;
+            color: #000000;
+            text-align: left;
+            padding: 20px;
+            border-bottom: 2px solid #ebebeb;
+        }
+
+        td {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 400;
+            font-size: 24px;
+            color: #000000;
+            padding: 20px;
+            border-bottom: 1px solid #ebebeb;
+            vertical-align: top;
+        }
+
+        .period {
+            color: #c1c6d1;
+            font-weight: 600;
+            font-size: 24px;
+            width: 25%;
+        }
+
+        .position {
+            color: #000000;
+            font-style: italic;
+            font-size: 32px;
+            font-weight: 400;
+            width: 30%;
+        }
+
+        .description {
+            color: #7788ad;
+            font-size: 24px;
+            line-height: 31.2px;
+            width: 45%;
+        }
+
+        .description ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .description li {
+            margin-bottom: 8px;
+        }
+
+        .description li:before {
+            content: "- ";
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                font-size: 18px;
+                padding: 15px 10px;
+            }
+
+            .period {
+                font-size: 20px;
+            }
+
+            .position {
+                font-size: 24px;
+            }
+
+            .description {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Карьера</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Период</th>
+                <th>Должность</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="period">Февраль 2025 — по настоящее время</td>
+                <td class="position">Senior Product Designer в aic (1C)</td>
+                <td class="description">Работаю над рефакторингом дизайн‑системы и проектированием ключевых решений для крупного релиза системы и глобального обновления</td>
+            </tr>
+            <tr>
+                <td class="period">Август 2023 — Февраль 2025</td>
+                <td class="position">Senior Product Designer в ToYou (KSA)</td>
+                <td class="description">
+                    <ul>
+                        <li>Спроектировал новый лендинг с серверной SEO‑адаптивностью</li>
+                        <li>Сократил количество заявок, обрабатываемых службой поддержки вручную</li>
+                        <li>Снизил среднюю стоимость обработки тикета с 1,3$ до примерно 0,2$</li>
+                        <li>Реализовал отображение аллергенов и пищевой ценности продуктов в каталоге BX</li>
+                        <li>Сделал ряд фич для курьеров: тепловую карту, мультиточки и другое</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="period">Апрель 2023 — Август 2023</td>
+                <td class="position">Senior Product Designer в Growth.pet</td>
+                <td class="description">
+                    <ul>
+                        <li>Улучшил поток работы администратора салона</li>
+                        <li>Создал кросс‑канальный мессенджер для администрирования салона</li>
+                        <li>Спроектировал теговую модель клиента и масштабировал её на все ключевые потоки</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="period">Ноябрь 2022 — Апрель 2023</td>
+                <td class="position">Product Designer в Salebot</td>
+                <td class="description">
+                    <ul>
+                        <li>Занимался исследованием и редизайном конструктора чат‑ботов</li>
+                        <li>Спроектировал новую вертикаль продукта: конструктор образовательных курсов</li>
+                        <li>Улучшил чат платформы и оконную версию на стороне пользователя</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="period">Февраль 2021 — Ноябрь 2022</td>
+                <td class="position">Product Designer в Правительстве Москвы</td>
+                <td class="description">
+                    <ul>
+                        <li>Вёл несколько систем ЕАСУЗ для горожан</li>
+                        <li>Увеличил суммарное количество заявок на тендеры через систему</li>
+                        <li>Добавил больше информации по каждому тендеру, чтобы усилить контроль со стороны граждан</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
