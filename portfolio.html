@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
@@ -187,8 +187,8 @@
 
         .site-header-btn {
             padding: 8px 16px;
-            border-radius: 16px;
-            font-weight: 500;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 14px;
             line-height: 1.25;
             text-decoration: none;
@@ -200,13 +200,16 @@
         }
 
         .site-header-btn-telegram {
-            background-color: #BA00DF;
+            background: linear-gradient(-45deg, #ff0d4d, #d47a2e, #ff44dd, #aa22cc);
+            background-size: 400% 400%;
+            animation: header-btn-gradient 10s ease infinite;
             color: #ffffff;
+            border: none;
         }
 
         .site-header-btn-resume {
-            color: #BA00DF;
-            border: 1px solid #BA00DF;
+            color: #222222;
+            border: 1px solid #222222;
             background: transparent;
         }
 
@@ -355,14 +358,23 @@
         }
 
         .header-btn-telegram {
-            background-color: #BA00DF;
+            background: linear-gradient(-45deg, #ff0d4d, #d47a2e, #ff44dd, #aa22cc);
+            background-size: 400% 400%;
+            animation: header-btn-gradient 10s ease infinite;
             color: #ffffff;
             padding: 16px 24px;
             border-radius: 16px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 16px;
             line-height: 1.25;
+            border: none;
+        }
+
+        @keyframes header-btn-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .header-btn-telegram:hover {
@@ -370,13 +382,13 @@
         }
 
         .header-btn-resume {
-            color: #BA00DF;
-            border: 1px solid #BA00DF;
+            color: #222222;
+            border: 1px solid #222222;
             background: transparent;
             padding: 16px 24px;
             border-radius: 16px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 16px;
             line-height: 1.25;
         }
@@ -483,7 +495,13 @@
             object-fit: cover;
             object-position: top center;
             display: block;
-            border-radius: 12px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .image-frame.image-frame--fit img {
+            object-fit: contain;
+            object-position: center center;
+            border-radius: 24px;
         }
 
         .image-placeholder {
@@ -527,6 +545,10 @@
             width: calc((100% - 64px) / 3);
             min-width: 0;
             cursor: pointer;
+        }
+
+        .cases-article-card.is-hidden {
+            display: none;
         }
 
         .cases-article-image-wrap {
@@ -617,7 +639,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 0;
             box-sizing: border-box;
             opacity: 0;
             visibility: hidden;
@@ -629,21 +651,191 @@
             visibility: visible;
         }
 
-        /* При открытом попапе скролл только внутри .case-popup-body */
+        /* При открытом попапе скролл только внутри попапа */
         html.popup-open {
             overflow: hidden;
         }
 
         .case-popup {
             background: #fff;
-            border-radius: 32px;
-            max-width: 720px;
+            border-radius: 0;
             width: 100%;
-            max-height: 90vh;
-            overflow: hidden;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: none;
+            padding: 24px 24px 40px;
+            box-sizing: border-box;
+            position: relative;
+            scrollbar-width: none;
+        }
+
+        .case-popup::-webkit-scrollbar {
+            display: none;
+            width: 0;
+        }
+
+        .case-popup-adhd {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0;
+            z-index: 2010;
+        }
+
+        .case-popup-adhd.is-hidden {
+            display: none;
+        }
+
+        .case-popup-adhd-video {
+            margin-bottom: 0;
+            max-height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.6s ease, visibility 0.6s ease, transform 0.6s ease, max-height 0.6s ease, margin-bottom 0.6s ease;
+        }
+
+        .case-popup-adhd-video.is-visible {
+            margin-bottom: 16px;
+            max-height: 400px;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .case-popup-adhd-video video {
+            width: 200px;
+            height: auto;
+            display: block;
+            vertical-align: top;
+        }
+
+        .case-popup-adhd-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .case-popup-adhd-label {
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        .heart-switch {
+            --duration: .45s;
+            --stroke: #D1D6EE;
+            --stroke-active: #ec4472;
+            --fill: #fff;
+            --fill-active: #ec638e;
+            --shadow: rgba(0, 9, 61, 0.25);
+            cursor: pointer;
+            position: relative;
+            transform: scale(var(--s, 1)) translateZ(0);
+            transition: transform .2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .heart-switch:active {
+            --s: .95;
+        }
+
+        .heart-switch input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            position: absolute;
+            outline: none;
+            border: none;
+            pointer-events: none;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+            left: 1px;
+            top: 1px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 3px 0 var(--shadow);
+        }
+
+        .heart-switch input + svg {
+            width: 36px;
+            height: 25px;
+            fill: var(--fill);
+            stroke: var(--stroke);
+            stroke-width: 1px;
+            stroke-linejoin: round;
+            display: block;
+            transition: stroke var(--duration), fill var(--duration);
+        }
+
+        .heart-switch input:not(:checked) {
+            animation: heart-uncheck var(--duration) linear forwards;
+        }
+
+        .heart-switch input:checked {
+            animation: heart-check var(--duration) linear forwards;
+        }
+
+        .heart-switch input:checked + svg {
+            fill: var(--fill-active);
+            stroke: var(--stroke-active);
+        }
+
+        @keyframes heart-uncheck {
+            0% {
+                transform: rotate(-30deg) translateX(13.5px) translateY(8px);
+            }
+            50% {
+                transform: rotate(30deg) translateX(9px);
+            }
+            75% {
+                transform: rotate(30deg) translateX(4.5px) scaleX(1.1);
+            }
+            100% {
+                transform: rotate(30deg);
+            }
+        }
+
+        @keyframes heart-check {
+            0% {
+                transform: rotate(30deg);
+            }
+            25% {
+                transform: rotate(30deg) translateX(4.5px) scaleX(1.1);
+            }
+            50% {
+                transform: rotate(30deg) translateX(9px);
+            }
+            100% {
+                transform: rotate(-30deg) translateX(13.5px) translateY(8px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .case-popup-overlay .case-popup-close {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            }
+            .case-popup {
+                flex-direction: column;
+                align-items: center;
+            }
+            .case-popup-image-wrap {
+                border-radius: 0;
+            }
         }
 
         .case-popup-image-wrap {
@@ -663,22 +855,8 @@
         }
 
         .case-popup-body {
-            padding: 24px 24px 40px;
-            overflow-y: auto;
-            flex: 1 1 auto;
-            min-height: 0;
-            scrollbar-width: none;
-        }
-
-        @supports (overflow: overlay) {
-            .case-popup-body {
-                overflow-y: overlay;
-            }
-        }
-
-        .case-popup-body::-webkit-scrollbar {
-            display: none;
-            width: 0;
+            padding: 0;
+            overflow: visible;
         }
 
         .case-popup-title {
@@ -825,9 +1003,9 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            flex: 1;
-            min-height: 0;
-            overflow: hidden;
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 740px;
         }
 
         /* Лайтбокс для картинок в кейсах */
@@ -885,6 +1063,24 @@
             max-width: 100%;
             height: auto;
             max-height: none;
+        }
+
+        .image-lightbox-overlay.is-fit-screen img {
+            max-width: 100%;
+            max-height: calc(100vh - 96px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .image-lightbox-overlay.is-zoomable img {
+            max-width: none;
+            max-height: none;
+            cursor: grab;
+        }
+
+        .image-lightbox-overlay.is-zoomable img:active {
+            cursor: grabbing;
         }
 
         /* Careers Section */
@@ -986,9 +1182,8 @@
 
         /* Recommendations Section */
         .recommendations-section {
-            margin: 0 auto;
+            margin: 64px auto 64px;
             padding: 0;
-            margin-bottom: 64px;
         }
 
         .recommendations-section h2 {
@@ -1095,27 +1290,6 @@
 
         .recommendation-text p + p {
             margin-top: 16px;
-        }
-
-        .site-footer {
-            width: 100%;
-            margin-top: 56px;
-        }
-
-        .site-footer-divider {
-            width: 100%;
-            border: none;
-            border-top: 1px solid #ebebeb;
-            margin: 0 0 24px 0;
-        }
-
-        .site-footer-text {
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 1.4;
-            color: #ebebeb;
-            text-align: center;
-            margin: 0;
         }
 
         /* Responsive Design */
@@ -1246,8 +1420,8 @@
             .site-header-menu-cta .header-btn-telegram {
                 display: inline-block;
                 padding: 20px 24px;
-                border-radius: 16px;
-                font-weight: 500;
+                border-radius: 8px;
+                font-weight: 600;
                 font-size: 20px;
                 line-height: 1.25;
                 text-decoration: none;
@@ -1374,8 +1548,8 @@
             <nav class="site-nav">
                 <a href="#cases">Кейсы</a>
                 <a href="#careers">Карьера</a>
-                <a href="#recommendations">Рекомендации</a>
                 <a href="#works">Работы</a>
+                <a href="#recommendations">Рекомендации</a>
             </nav>
             <div class="site-header-icons">
                 <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="site-header-btn site-header-btn-telegram">Написать мне</a>
@@ -1408,14 +1582,7 @@
             </h1>
             <div class="header-buttons">
                 <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="header-btn-telegram">Написать мне</a>
-                <a href="resume.pdf" download class="header-btn-resume">Скачать резюме в pdf</a>
-            </div>
-            <div class="header-logos-label">РАБОТАЛ В</div>
-            <div class="header-logos">
-                <img src="logos/aic.svg" alt="aic">
-                <img src="logos/1c.png" alt="1C">
-                <img src="logos/ToYou.svg" alt="ToYou">
-                <img src="logos/growthpet.svg" alt="Growth.pet">
+                <a href="resume.pdf" download class="header-btn-resume">Скачать резюме</a>
             </div>
         </section>
     </div>
@@ -1426,103 +1593,109 @@
             <h2>Кейсы</h2>
             <div class="cases-list">
                 <div class="cases-articles">
-                    <article class="cases-article-card">
+                    <div class="cases-article-card">
                         <div class="cases-article-image-wrap">
                             <img src="images/case1.png" alt="">
                         </div>
                         <span class="cases-article-descriptor">Salebot</span>
-                        <h3 class="cases-article-title">Проще несмотря на минимализм в прошлом</h3>
+                        <h3 class="cases-article-title">Упрощая минимализм</h3>
                         <p class="cases-article-text">Дорогие доработки платформы вынуждали нас на консистентные решения невозможные платформой</p>
                         <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
                         <div class="cases-article-full" hidden>
-                            <p>Это старая версия конструкора чат-ботов, которая имела кучу проблем, новые юзеры долго обучались или вообще пугались интерфейса и уходили к конкурентам или специальным разработчикам чат-ботов на нашей платформе.</p>
-                            <div class="case-popup-inline-image"><img src="images/case1screen1.png" alt=""></div>
-                            <p>По итогу исследований (коридорки, интервью, метрики) вывели ряд проблем:</p>
+                            <p><strong>Проблемы</strong></p>
                             <ul>
-                                <li>Нет полноценной визуализации связей</li>
-                                <li>Непонятна логика связей и логика работы блока из названий, что произойдет то?</li>
-                                <li>Не видно наполненности блока</li>
-                                <li>В правой панели все сливается</li>
+                                <li>Старый интерфейс отталкивает новых пользователей</li>
+                                <li>Блоки не информативны</li>
+                                <li>Требуются дополнительные специалисты для работы с системой</li>
+                                <li>Изучать конструктор долго и сложно</li>
                             </ul>
-                            <p>В новой версии мы проработали блоки для нового юзера и старого, стали показывать связи блоков более нативно, добавили превью действия блока и др.</p>
+                            <div class="case-popup-inline-image"><img src="images/case1screen1.png" alt=""></div>
+                            <p><strong>Метод исследования</strong></p>
+                            <p>Сегментированные интервью: Пользователи конкурентов, Профессиональные разработчики, Мелкие самоучки, Новые пользователи без опыта в конструкторах</p>
+                            <p><strong>Инсайты</strong></p>
+                            <ul>
+                                <li>Связи (стрелочки между блоками) сейчас ничего не показывают, новые пользователи не понимают что на них можно нажать</li>
+                                <li>Названия блоков ни о чем не говорят: «нужно долго работать в конструкторе чтобы начать запоминать мол зеленый — старт, белый — пауза и т.д.»</li>
+                                <li>Не видно наполненности блока, чтобы посмотреть в блоке сообщение есть ли там вложения или какой у него тип — нужно в него заходить</li>
+                                <li>В больших структурах прокликивать блоки в поиске нужного — долго</li>
+                                <li>Нет визуализации кнопок которые отправятся с сообщением</li>
+                                <li>В правой панели все сливается</li>
+                                <li>У технических блоков в правой панели такое же наполнение как у остальных, хотя оно не работает</li>
+                            </ul>
+                            <p><strong>Решения</strong></p>
+                            <ul>
+                                <li>Блоки стали нести в себе контент, текст, функции, вложения с превью, кнопки</li>
+                                <li>Кнопки в блоке стали источником связей (стрелок), теперь наглядно видно условие после которого идет следующее по стрелке действие</li>
+                                <li>На стрелке теперь размещается контент который она в себе несет</li>
+                                <li>Стрелки имеют разный визуал в зависимости от условия после которого сработает связь</li>
+                                <li>Правая панель имеет семантическую группировку с мягкими пастельными тонами, чтобы внутри нее было легче ориентироваться, самые популярные действия закреплены снизу, до них не нужно листать</li>
+                                <li>Внутренность правой панели теперь не выводит функционал, который не может быть использован в данном типе блока</li>
+                                <li>При создании первого нового бота в конструкторе теперь выводилась ознакомительная структура, которая показывала все типы блоков и связей с их максимальной возможностью наполнение (с возможностью отключения этого шаблона для опытных пользователей)</li>
+                            </ul>
                             <div class="case-popup-inline-image"><img src="images/case1screen2.png" alt=""></div>
-                            <p>Также, изменений сильно коснулась правая панель, мы добавили семантическую группировку в панель и задали им мягкие пастельные тона с смысловой привязкой на фон чтобы было легче ориентироваться.</p>
-                            <p>Внутренность блока теперь формируется не автоматически под скрывающийся контент, а исходя из нужд в конкретно этом блоке, наполняя его через кнопки снизу.</p>
-                            <p>Главным результатом стало уменьшенное кол-во нажатий на блок без изменений (когда разработчик заходит в блок чтобы посмотреть наполнение) и общее уменьшение кол-во нажатий на стрелку связи.</p>
+                            <p><strong>Результат</strong></p>
+                            <ul>
+                                <li>Сократилось на 41% количество нажатий на блок без изменений</li>
+                                <li>Увеличилось кол-во настроенных связей</li>
+                                <li>Увеличилось кол-во нажатий на связи среди новых пользователей</li>
+                            </ul>
                         </div>
-                    </article>
-                    <article class="cases-article-card">
+                    </div>
+                    <div class="cases-article-card">
                         <div class="cases-article-image-wrap">
                             <img src="images/case2.png" alt="">
                         </div>
                         <span class="cases-article-descriptor">ToYou</span>
-                        <h3 class="cases-article-title">Дизайн-подглядки: как и почему мы дорабатывали интерфейс техподдержки через веб-камеры</h3>
+                        <h3 class="cases-article-title">Как и почему мы дорабатывали интерфейс техподдержки через веб-камеры</h3>
                         <p class="cases-article-text">Менталитет Саудитов позволял показать только лучших респондентов для наших исследований, а мы стали смотреть за всеми через веб-камеры</p>
                         <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
                         <div class="cases-article-full" hidden>
-                            <p>Задачи бизнеса:</p>
+                            <p><strong>Проблемы</strong></p>
                             <ul>
-                                <li>Уменьшить количество неверной обработки тикета, возвраты по скрипту, но не по делу, лишние промокоды и пр.</li>
-                                <li>Сократить время на обработку тикета</li>
-                                <li>Сократить время на первый ответ клиенту (изучение тикета) без ответов в формате "Мы уже занимаемся вашим вопросом"</li>
+                                <li>Сотрудники технической поддержки часто принимают неверные для бизнеса решение, возвраты средств по скрипту (но не по делу), выдают лишние промокоды и др.</li>
+                                <li>Затрачивается много времени на обработку одного тикета</li>
+                                <li>Тикет долго изучается, ввиду чего клиент долго получает «первый ответ»</li>
                             </ul>
-                            <p>Попытался провести стандартный ресерч в формате интервью с работниками техподдержки, чтобы после погенерить гипотезы. Но арабский и саудовский менталитеты предоставляли мне только лучших из лучших, кто закрывает тикеты быстро, не ошибается, получает регулярные премии. Нам показали идеальную картинку.</p>
-                            <p>Пришли к тому, что самое адекватное — guerrilla research.<br>Нагрумил разные решения от командировок, до работы в техподдержке удаленно. Все не подходило, слишком долго, а решение нужно сделать и выпустить за примерно 2 месяца. Стал думать дальше.</p>
-                            <p>В оупенспейсе техподдежки жёсткий регламент, стоят камеры, но запись обработки тикетов в виде записи сессии в системе не велась. Внедрить такое быстро не могли, долго, не успевали физически. Но ведь запись то есть, хоть и с веб-камер. Пошел просить разрешений у безопасников и русско-говорящих стейкхолдеров, заручился их поддержкой и согласовал такой формат исследования:</p>
+                            <p><strong>Изучение</strong></p>
+                            <p>Углубившись в проблемы которые принес бизнес начал смотреть, что, как, да почему. Попытался провести стандартный ресерч в формате интервью с работниками техподдержки, чтобы после погенерить гипотезы. Но арабский и саудовский менталитеты предоставляли мне только лучших из лучших, кто закрывает тикеты быстро, не ошибается, получает регулярные премии. Нам показали идеальную картинку.</p>
+                            <p>Пришел к тому, что нужно искать другой подход, ибо так ничего не доработать, ведь все «идеально». Нагрумил разные решения от командировок, до работы в техподдержке удаленно. Все не подходило, слишком долго, а решение нужно сделать и выпустить за примерно 2 месяца. Стал думать дальше.</p>
+                            <p>Запись обработки тикетов в виде записи сессии в системе тогда не велась, только логи самой переписки. Внедрить такое быстро не могли, долго, не успевали физически, подключение Hotjar или аналогов в нашу систему на Odoo было слишком трудозатратно.</p>
+                            <p>А как ещё посмотреть на то что делает юзер удаленно, если и пообщаться с юзером не имеет смысла?</p>
+                            <p><strong>Метод исследования</strong></p>
+                            <p>В оупенспейсе техподдежки жёсткий регламент, стоят камеры. Получается записи сессий то есть, хоть и с веб-камер. Пошел просить разрешений у безопасников и русско-говорящих стейкхолдеров, заручился их поддержкой и согласовал такой формат исследования:</p>
                             <ul>
                                 <li>Записи с веб-камер за самую нагруженную неделю (Первая неделя после рамадана)</li>
                                 <li>Текстовая расшифровка всех тикетов за ту неделю (с переводом с арабского и диалектов по необходимости)</li>
-                                <li>Сводная таблица неправильно проработанных тикетов (по итогу квартала эта метрика уже всегда собиралась для дообучения сотрудников)</li>
-                                <li>Неограниченный ресурс переводчиков</li>
+                                <li>Сводная таблица неправильно проработанных тикетов (по итогу квартала эта метрика всегда собиралась для дообучения сотрудников)</li>
                             </ul>
                             <p>Благо такое решение произвело положительное впечатление и мне выдали в помощь 2 арабо-говорящих аналитика и продакта на фуллтайм подмогу, поэтому переводчики и не понадобились. Интерфейс с веб-камер не было видно, поэтому приходилось сопоставлять сотрудника, рабочее место, дату и время тикета, логи тикета и запись с камеры.</p>
-                            <p>За 5 дней мы сопоставили и отсмотрели несколько сотен тикетов и записей, и вывели ряд повторяющихся ошибок:</p>
+                            <p>За 5 дней мы сопоставили по времени и отсмотрели несколько сотен тикетов и записей, и вывели ряд повторяющихся ошибок:</p>
+                            <p><strong>Инсайты</strong></p>
                             <ul>
-                                <li>Даже расширенные скрипты не всегда помогали решить проблему</li>
-                                <li>Много информации, что требуется в работе – далеко запрятаны или недоступны вовсе.</li>
-                                <li>Сотрудник техподдержки долго изучает тикет</li>
-                                <li>Сотрудник не знает диалект и переводить на другого сотрудника – долго и требует чтобы руководитель перенес этот тикет сам</li>
+                                <li>Даже расширенные скрипты не всегда помогали решить проблему, скрипты иногда утекали в сеть</li>
+                                <li>Много информации, что требуется в работе – далеко запрятаны или недоступны вовсе</li>
+                                <li>Сотруднику требовалось в обязательном порядке заполнять поля «Тип обращения» и «Конкретная проблема», «Решение»</li>
+                                <li>Сотрудник не всегда знает определенный диалект, а переводить на другого сотрудника в системе возможен только руководителем</li>
                                 <li>И др.</li>
                             </ul>
-                            <p>Ну и начали думать и проектировать, как это решить, разбили это на интерфейсные решения:</p>
+                            <p><strong>Решения</strong></p>
                             <ul>
                                 <li>Кнопка быстрого подключения старшего сотрудника к тикету, без переводов и согласований.</li>
-                                <li>Добавили больше информации на главную страницу, вывели туда прошлые возвраты и промокоды с быстрым переходом к тикету по которым они были произведены, чтобы избежать мошенников</li>
-                                <li>Запланировали подключение OpenAI, чтобы он типизировал тикеты (для начала). Поменяли поля в интерфейсе, чтобы информация о пользователе была отделена от информации о тикете, раньше было перемешано.</li>
-                                <li>п.3 с распознаванием диалекта на тот момент справлялся не очень, поэтому добавили кнопку перевода на сотрудников говорящих на другом диалекте, всем сотрудникам добавили языки и диалекты на которых говорят, в окне перевода показали эти же значения.</li>
+                                <li>Поменяли поля в интерфейсе, чтобы информация о пользователе была отделена от информации о тикете, раньше было перемешано.</li>
+                                <li>Добавили информацию о прошлых обращениях в отдельную страницу с быстрым доступом, вывели туда прошлые возвраты и промокоды с быстрым переходом к тикету по которым они были произведены, чтобы избежать фрода</li>
+                                <li>Добавили сотрудникам параметр знания диалектов и кнопку быстрого перевода тикета на сотрудника знающего диалект клиента</li>
+                                <li>Запланировали подключение OpenAI, чтобы он типизировал тикеты и выставлял нужную проблематику, чтобы сотрудник мог быстро сверить эту информацию с тикетом</li>
                             </ul>
-                            <p>По итогу этой фичи и нескольких других мы вот так повлияли на метрики:</p>
+                            <p><strong>Результат</strong></p>
                             <ul>
                                 <li>Уменьшен процент неверной обработки тикета с ~8% до ~1.4%.</li>
                                 <li>Сокращено среднее время обработки тикета с 18 минут до 12 минут, а в дальнейшем до 10.5 минут</li>
-                                <li>Снизилась среднюю стоимость обработки тикета с 1,3$ до 0,98$ без учета OpenAi тикетов, с их учетом 0,2$</li>
-                                <li>Время на первый ответ клиенту сокращено с 6 до 3 минут</li>
+                                <li>Снизилась среднюю стоимость обработки тикета с 1,3$ до 0,98$ без учета OpenAi тикетов, в будущем с их учетом — 0,2$</li>
+                                <li>Время на первый ответ клиенту сокращено с ~6 до ~3 минут</li>
                             </ul>
                         </div>
-                    </article>
-                    <article class="cases-article-card">
-                        <div class="cases-article-image-wrap">
-                            <img src="images/case3.png" alt="">
-                        </div>
-                        <span class="cases-article-descriptor">ToYou</span>
-                        <h3 class="cases-article-title">Яркий интерфейс в солнечной стране вынудил выйти за рамки экрана</h3>
-                        <p class="cases-article-text">Как мы решали интерфейсные проблемы неинтерфейсными методами</p>
-                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
-                        <div class="cases-article-full" hidden>
-                            <p>Дорабатывая сервис для водителей такси и курьеров, я столкнулся с тем, что у нас не слишком светлая, но достаточно яркая палитра, которую просто не видели водители на солнце.</p>
-                            <p>Попытался поменять цвета в рамках того, что позволяла бренд-команда, но ничего не выходило. В Саудовской Аравии из 365 дней примерно 340 солнечных. Из-за этого водители не видели кнопок что не акцентные, с лёгкой заливкой, иконкой или текстом в бренд-свете.</p>
-                            <p>Долго грумил, чем могу помочь водителям, не меняя палитру. Самое классное решение — чёрные кнопки, но бренд не согласовал.</p>
-                            <p>Пошел ходить по улице с телефоном на солнце, очевидно, но заходишь в тень – все видно всегда.</p>
-                            <p>С этого начал генерить гипотезы: как создать пользователю "тень" на экране. Решил выйти за рамки экрана, решить проблему in real life, вне устройства и интерфейса. Согласовал такое нестандартное решение с стейками и пошел думать.</p>
-                            <p>Был вариант — увеличенные козырьки для автомобиля. Но водители используют разные машины: козырьки крепятся по-разному, поворачиваются в разные стороны, крепёж разной толщины. Не смогли оптимизировать даже под пять самых частых автомобилей у водителей. В Саудовской Аравии и странах вокруг (Иордании) физически невыполнимо заказать, а индивидуальный китай долго и дорого.</p>
-                            <p>Пришла аналогия из детства: в морской бой вырывали двойной листочек, делали "ноутбук" с закрывашкой сверху, снизу два поля боя, чтобы не видел соперник.</p>
-                            <p>Начали думать, как применить на смартфонах. Подглядели у киберспортсменов: на монитор крепятся "уши" по бокам, закрывают от чужих взглядов сидящих рядом.</p>
-                            <div class="case-popup-inline-image"><img src="images/case3monitor.png" alt=""></div>
-                            <p>Пришли к решению выдавать крепления смартфона на торпеду автомобиля с этими теневыми ушами которые адаптируются под размер смартфона по высоте и ширине как на электросамокатах например (такое же решение уже было в держателях для смартфонов на автомобиль). Нашли мелкое производство которое нам доработало теневые уши (заслонки), и выдавали крепежи водителям вместе с этими ушками. Водители рады, интерфейс работает лучше, просто потому что его ВИДНО.</p>
-                            <div class="case-popup-inline-image"><img src="images/case3caser.png" alt=""></div>
-                        </div>
-                    </article>
-                    <article class="cases-article-card">
+                    </div>
+                    <div class="cases-article-card">
                         <div class="cases-article-image-wrap">
                             <img src="images/case4.png" alt="">
                         </div>
@@ -1531,15 +1704,78 @@
                         <p class="cases-article-text">Клиенты пишут везде, но не везде их возможно распознать, как мы скрещивали мессенджеры и клиента</p>
                         <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
                         <div class="cases-article-full" hidden>
-                            <p>В груминг салонах часто один и тот же человек пишет с разных мессенджеров: WhatsApp, Facebook, Instagram. Важно сохранять привязку к пользователю, помнить, как зовут питомцев, какие болезни, ограничения, прививки у питомцев, каких прививок нет, когда были последние записи.</p>
-                            <p>Всё это нужно собрать в единую карточку клиента и привязать его соцсети, чтобы администратору было удобно работать.</p>
-                            <p>Я пришел к стандартному решению на рынке: слева список чатов, посередине окно чата, справа карточка клиента.</p>
-                            <p>В карточку клиента уже перенесены дополнительные сущности: питомцы, клички, фото питомцев, сторилайн со всеми записями, прививками и прочим.</p>
+                            <p><strong>Проблема</strong></p>
+                            <p>Разные владельцы питомца (котомама и котопапа) или один и тот же пишут с разных мессенджеров и разных аккаунтов в них и часто это тяжело идентифицировать</p>
+                            <p><strong>Метод исследования</strong></p>
+                            <p>Сегментированные интервью с администраторами груминг салонов: Сетевики, частные салоны, премиум салоны</p>
+                            <p><strong>Инсайты</strong></p>
+                            <ul>
+                                <li>Такие несостыковки порождают дублирующиеся записи, что ведет к потери прибыли, ведь слот то занят</li>
+                                <li>Теряется связь клиент — питомец, важно помнить клички питомцев, болезни, ограничения, прививки и последние записи</li>
+                                <li>Сложно предлагать персональные скидки и напоминать, когда не знаешь с кем конкретно общаешься</li>
+                            </ul>
+                            <p><strong>Решения</strong></p>
+                            <ul>
+                                <li>Для чата выбрал стандартное рыночное решение лейаута для CRM систем: Список чатов → Окно чата → Карточка клиента</li>
+                                <li>Основной функционал и все связи были размещены и разбиты на странички в карточке клиента</li>
+                                <li>Одного питомца можно привязать к нескольким пэтперентам</li>
+                                <li>Информация о клиенте содержит все каналы связи с конкретным пэтперентом и маркетинговые теги которые ему присвоены</li>
+                                <li>Список питомцев подскажет по типу породы и возрасту, если питомца уже пора стричь</li>
+                                <li>Быстрый доступ к текущим записям истории действий</li>
+                                <li>Функционал автоматических напоминаний клиентам кончающихся прививках</li>
+                            </ul>
                             <div class="case-popup-inline-image"><img src="images/case4screen1.png" alt=""></div>
                             <div class="case-popup-inline-image"><img src="images/case4screen2.png" alt=""></div>
+                            <p><strong>Результат</strong></p>
+                            <ul>
+                                <li>Для большего количества случаев и новых клиентов салонов проблема решена, теперь идентифицировать клиентов по одному питомцу стало проще</li>
+                                <li>Быстрый доступ к питомцам и напоминания улучшили качество обслуживание клиентов (со слов администраторов)</li>
+                                <li>Количество переходов в календарь и список клиентов во время чата составил 3.7%</li>
+                            </ul>
+                            <p><strong>Что не получилось</strong></p>
+                            <ul>
+                                <li>Проблема с дублированием записей частично осталась из-за старых баз, когда по факту один котенок был заведен как два питомца разных у двух пэтперентов</li>
+                                <li>Потенциальные записи работали, но не всегда верно рассчитывали время записи у некоторых больших пород (отправили на доработку аналитикам)</li>
+                            </ul>
                         </div>
-                    </article>
-                    <article class="cases-article-card">
+                    </div>
+                    <div class="cases-article-card">
+                        <div class="cases-article-image-wrap">
+                            <img src="images/case3.png" alt="">
+                        </div>
+                        <span class="cases-article-descriptor">ToYou</span>
+                        <h3 class="cases-article-title">Солнце вынудило нас выйти за рамки экрана</h3>
+                        <p class="cases-article-text">Как мы решали интерфейсные проблемы неинтерфейсными методами</p>
+                        <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
+                        <div class="cases-article-full" hidden>
+                            <p><strong>Предисловие</strong></p>
+                            <p>Дорабатывая сервис для водителей такси и курьеров, я столкнулся с тем, что у нас не слишком светлая, но достаточно яркая палитра, которую просто не видели водители на солнце.</p>
+                            <p>Попытался поменять цвета в рамках того, что позволяла бренд-команда, но ничего не выходило. В Саудовской Аравии из 365 дней примерно 340 солнечных. Из-за этого водители не видели кнопок что не акцентные, с лёгкой заливкой, иконкой или текстом в бренд-свете.</p>
+                            <p>Долго грумил, чем могу помочь водителям, не меняя палитру. Самое классное решение — чёрные кнопки, но бренд не согласовал.</p>
+                            <p><strong>Проблемы</strong></p>
+                            <ul>
+                                <li>Водители совсем не видят вторичные кнопки с легкой заливкой и иконкой или текстом в бренд-цвете</li>
+                                <li>Бренд-команда не позволяет менять палитру</li>
+                            </ul>
+                            <p><strong>Решение</strong></p>
+                            <p>После долгих попыток согласований с бренд-командой и тестирования разных вариантов частью команды решили прогрумить: а может искоренить проблему in real life, вне устройства и интерфейса?</p>
+                            <p><strong>Задача</strong></p>
+                            <p>Создать пользователю "тень" на экране.</p>
+                            <p><strong>Варианты</strong></p>
+                            <p>Первый вариант — увеличенные козырьки для автомобиля. Но водители используют разные машины: козырьки крепятся по-разному, поворачиваются в разные стороны, крепёж разной толщины. Не смогли оптимизировать даже под пять самых частых автомобилей у водителей. В Саудовской Аравии и странах вокруг (Иордании) физически невыполнимо заказать, а индивидуальный китай долго и дорого. Отметаем.</p>
+                            <p>Второй вариант мы подглядели у киберспортсменов: на их монитор крепятся "уши" по бокам, закрывают от чужих взглядов сидящих рядом и световых бликов. То что нужно!</p>
+                            <div class="case-popup-inline-image"><img src="images/case3monitor.png" alt=""></div>
+                            <p><strong>Финальное решение</strong></p>
+                            <p>Пришли к решению выдавать крепления смартфона на торпеду автомобиля с этими теневыми ушами которые адаптируются под размер смартфона по высоте и ширине как на электросамокатах например (такое же решение уже было в держателях для смартфонов на автомобиль). Нашли мелкое производство которое нам доработало теневые уши (заслонки), и выдавали крепежи водителям вместе с этими ушками.</p>
+                            <div class="case-popup-inline-image"><img src="images/case3caser.png" alt=""></div>
+                            <p><strong>Результат</strong></p>
+                            <ul>
+                                <li>Процент утренних + дневных сессий с нажатием на вторичные кнопки вырос с 4% до 16.66%.</li>
+                                <li>Косвенно сократились обращения в ТП водителей, просто потому что спрашивать где кнопка больше не нужно, теперь он её видит.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cases-article-card">
                         <div class="cases-article-image-wrap">
                             <img src="images/case5.png" alt="">
                         </div>
@@ -1548,20 +1784,43 @@
                         <p class="cases-article-text">Прийдя в 1С я столкнулся с главной проблемой, два движка отличаются технически, но должны сохранять максимально схожую структуру при абсолютно разных потребностях</p>
                         <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
                         <div class="cases-article-full" hidden>
-                            <p>Подробнее о данном кейсе я готов рассказать на звонке, ибо показать все не могу ввиду NDA.</p>
+                            <p>Данный кейс частично под NDA, но об опыте который получил с удовольствием расскажу на звонке</p>
+                            <p><strong>Предисловие</strong></p>
                             <p>Придя в 1С, я столкнулся с большой проблемой — у нас два разных движка: стандартный движок 1С и движок Element для пользовательских решений, таких как интернет-магазины, не учетная система, а что-то попроще.</p>
-                            <p>Семь лет назад проектировался движок Element под современные реалии: воздушный дизайн, увеличенные отступы, красиво. Его нарисовали, начали выпускать.</p>
-                            <p>Решили переводить основной движок на эту дизайн-систему. Но спустя семь лет компания поняла, что не получается содержать их вместе. Нужно разделить две дизайн-системы.</p>
-                            <p>Столкнулись с рядом проблем, как технических: в коде элементы уже сильно отличаются, так и логическо-продуктовых: таблицы с 40 столбцами, которые скроллятся горизонтально, не объединить в карточку для мобильного клиента. В Element таблицы маленькие и адаптировались в мобильный клиент, а в обычном движке — нет, там таблицы огромные.</p>
-                            <p>Собрал запросы с дизайнеров из команд 1С, которые занимаются библиотечными продуктами 1С. Сформировал структуру.</p>
+                            <p>Семь лет назад проектировался движок Element под современные реалии: воздушный дизайн, увеличенные отступы, красиво. Его нарисовали, начали выпускать и решили применить эти стили на стандартный. Но спустя семь лет компания поняла, что не получается содержать их вместе.</p>
+                            <p><strong>Проблемы</strong></p>
+                            <ul>
+                                <li>20% дизайн-системы стандартного движка разбросаны по файлам задач где они создавались</li>
+                                <li>Сильные технические отличия двух движков, Element более визуально кастомизируемый, стандартный — логически</li>
+                                <li>У стандартного движка нет своей дизайн-системы, дизайнеры каждый раз кастомизируют компоненты Element'а</li>
+                                <li>Отсутствие описание компонентов под стандартный движок</li>
+                            </ul>
+                            <p><strong>Запросы дизайнеров</strong></p>
+                            <ul>
+                                <li>Отдельная библиотека с компонентами стандартного движка с учетом редизайна</li>
+                                <li>Все компоненты должны быть актуализированы, все что можно собрать в платформе стандартного движка — есть в дс</li>
+                                <li>Отдельные частые сочетания компонентов</li>
+                                <li>Изменение самой сборки некоторых компонентов, где сейчас используется оверлей для контента (большая боль)</li>
+                                <li>Некоторые компоненты называются по разному в 1С и остальном мире, новым дизайнером тяжело найти Toggle, когда он называется Выключатель и пр.</li>
+                            </ul>
+                            <p><strong>Структура</strong></p>
+                            <p>Я подготовил структуру, которая поддерживает консистентность визуала двух ДС, но отделяет их структурно, чтобы компоненты могли отличаться функционально, а дизайнерам было удобно с ней работать. Она состоит из общего ядра стилей и переменных, и двух ДС каждого движка куда эти стили тянутся. Каждая ДС содержит: Файл ДС (все компоненты с постраничной разбивкой и страницей навигации), файл галереи с паспортом компонента (то, куда попадает дизайнер), Confluence с расширенным и техническим описанием</p>
                             <div class="case-popup-inline-image"><img src="images/case5a1.png" alt=""></div>
-                            <p>Эта структура позволила оптимизировать процесс, начать перевод дизайн-системы, сформировали план.</p>
-                            <p>Я сформировал план MVP</p>
+                            <p><strong>MVP план перевода</strong></p>
+                            <p>Дабы сделать перевод более плавным и поэтапным я собрал MVP план перевода компонентов. Необходимо сначала было отделить все компоненты, собрать доску в тасктрекере, написать описать компоненты (паспорт каждого и Confluence).</p>
                             <div class="case-popup-inline-image"><img src="images/case5a2.png" alt=""></div>
-                            <p>После чего приступил к реализации со стороны основного движка. Сейчас дизайн-система практически полностью разделена и готова к работе новыми дизайнерами. Параллельно вводил новые фичи, дополнительные компоненты, оптимизировал компоненты, убирал лишние инстансы и варианты, формировал более простую дизайн-систему для работы дизайнеров (сократил с 1400 вариантов компонентов до ~120). Выстраивал процесс работы с художниками иконок и иллюстраций для дизайн-системы.</p>
+                            <p><strong>Точечные решения</strong></p>
+                            <ul>
+                                <li>Фиксы многих компонентов, где почему-то контент накладывался поверх блока, а не внутрь, например тултипы и всплывающие окна.</li>
+                                <li>В Description компонентов вносить мировой глоссарий, то как весь мир называет компоненты и общепринятые вторые имена внутри команды.</li>
+                                <li>В Галерею положить самые частые конструкции, например: список из чекбоксов</li>
+                            </ul>
+                            <p><strong>Текущий этап</strong></p>
+                            <p>Я перевел все компоненты стандартного движка и передал их в работу дизайнерам, по их фидбеку максимально оперативно правлю баги, если таковые находятся. Описываю все компоненты расширенно в Confluence, параллельно работая над интерфейсными задами вне ДС.</p>
+                            <p>Дополнительно получилось изменить процессы работы с иконками, которые передают художники и тестово внедрить там глоссарий, такой же как мы собирались делать на компоненты, на каждую иконку список из названий (русские, английские, что на иконке, тип иконки, название в Element, название в стандартном). Суммарно 500+ иконок и 2700+ названий.</p>
                         </div>
-                    </article>
-                    <article class="cases-article-card">
+                    </div>
+                    <div class="cases-article-card">
                         <div class="cases-article-image-wrap">
                             <img src="images/case6.png" alt="">
                         </div>
@@ -1570,17 +1829,26 @@
                         <p class="cases-article-text">Как я спасал грумеров от тяжелых собак, которых они физически не могут постричь</p>
                         <a href="#" class="cases-article-link">Читать <span class="link-arrow">🠒</span></a>
                         <div class="cases-article-full" hidden>
-                            <p>В продукте Growth.pet мы исследовали рынок записи в груминг салоны и работу грумеров в формате интервью и вывели очень нестандартную проблему.</p>
-                            <p>Некоторые грумеры не могут брать некоторых питомцев. Например: приходит клиент с 45 кг алабаем на процедуру, а девочка грумер ростом 160 см и весом 50 кг физически не сможет его поднять на стол, не то что держать во время процедуры.</p>
-                            <p>И мы вывели потребность: Не давать записывать питомцов с определенными параметрами к определенным грумерам.<br>Мы пошли несколькими путями. В первой версии ввели максимальный вес питомца, который может обслуживать эта девочка.</p>
-                            <p>Пришлось помимо добавления полей в админке перебирать и flow записи со стороны клиента.</p>
-                            <p>Мы изменили подход и сделали упор на питомца, а не клиента, т.е. в приложении flow записи стартовал от питомца, дабы сразу в предложениях о записи отметать недоступных грумеров.</p>
+                            <p>В продукте Growth.pet мы исследовали рынок груминг индустрии на предмет новых фич и доработок в нашу систему</p>
+                            <p><strong>Метод исследования</strong></p>
+                            <p>Интервью с администраторами, владельцами салонов, индивидуальными грумерами</p>
+                            <p><strong>Инсайт</strong></p>
+                            <p>Некоторые грумеры не могут брать определенных питомцев. Девочка грумер ростом 160 см и весом 50 кг физически не сможет поднять алабая 50 кг на стол, не то что держать во время процедуры.</p>
+                            <p><strong>Задача</strong></p>
+                            <p>Необходимо ограничить функционал записи питомцев с определенными параметрами для конкретных грумеров.</p>
+                            <p><strong>Решения</strong></p>
+                            <ul>
+                                <li>В админ панели добавляем функционал ограничений питомцев у мастера</li>
+                                <li>В клиентском приложении флоу записи стартуем от конкретного питомца, чтобы сразу помечать если мастер не сможет взять питомца в работу</li>
+                            </ul>
+                            <p><strong>Результат</strong></p>
+                            <p>За 3 месяца тестирования функционала — настройка была сделана у 29% грумеров</p>
                             <div class="case-popup-inline-image"><img src="images/case6mobile1.png" alt=""></div>
                             <div class="case-popup-inline-image"><img src="images/case6mobile2.png" alt=""></div>
                             <div class="case-popup-inline-image"><img src="images/case6screen1.png" alt=""></div>
                             <div class="case-popup-inline-image"><img src="images/case6screen2.png" alt=""></div>
                         </div>
-                    </article>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1647,6 +1915,42 @@
             </div>
         </section>
 
+    <!-- Images Section - Full Width (Карусель) -->
+    <section class="images-section" id="works">
+            <div class="container images-section-heading">
+                <h2>Работы</h2>
+            </div>
+            <div class="images-section-wrapper">
+                <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
+                <div class="image-frame"><img src="images/bento/2.png" alt="Работа 2"></div>
+                <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
+                <div class="image-frame image-frame--fit"><img src="images/bento/4.png" alt="Работа 4"></div>
+                <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
+                <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
+                <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
+                <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
+                <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
+                <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
+                <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
+                <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
+                <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
+                <!-- Дублируем для бесшовного скролла -->
+                <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
+                <div class="image-frame"><img src="images/bento/2.png" alt="Работа 2"></div>
+                <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
+                <div class="image-frame image-frame--fit"><img src="images/bento/4.png" alt="Работа 4"></div>
+                <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
+                <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
+                <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
+                <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
+                <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
+                <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
+                <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
+                <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
+                <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
+            </div>
+        </section>
+
         <!-- Секция рекомендаций -->
         <section class="recommendations-section" id="recommendations">
             <h2>Рекомендации коллег</h2>
@@ -1691,42 +1995,6 @@
             </div>
         </section>
 
-    <!-- Images Section - Full Width (Карусель) -->
-    <section class="images-section" id="works">
-            <div class="container images-section-heading">
-                <h2>Работы</h2>
-            </div>
-            <div class="images-section-wrapper">
-                <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
-                <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
-                <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
-                <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
-                <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
-                <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
-                <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
-                <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
-                <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
-                <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
-                <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
-                <!-- Дублируем для бесшовного скролла -->
-                <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
-                <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
-                <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
-                <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
-                <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
-                <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
-                <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
-                <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
-                <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
-                <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
-                <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
-            </div>
-        </section>
-
-        <footer class="site-footer">
-            <hr class="site-footer-divider">
-            <p class="site-footer-text">Портфолио, Сергей Нохрин, 2026 г.</p>
-        </footer>
     </div>
 
     <!-- Popup статьи кейса -->
@@ -1746,6 +2014,20 @@
                         <button type="button" class="case-popup-nav-link case-popup-nav-link--next" id="casePopupNext">Следующий кейс <span class="link-arrow">🠒</span></button>
                     </nav>
                 </div>
+            </div>
+        </div>
+        <div class="case-popup-adhd is-hidden">
+            <div class="case-popup-adhd-video" id="casePopupAdhdVideo">
+                <video id="casePopupAdhdVideoEl" src="video/sdvg1.mp4" loop muted playsinline></video>
+            </div>
+            <div class="case-popup-adhd-row">
+                <span class="case-popup-adhd-label">Поймать фокус</span>
+                <label class="heart-switch" aria-label="Поймать фокус">
+                    <input type="checkbox" id="casePopupAdhdToggle" />
+                    <svg viewBox="0 0 36 25" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 22.5C18 22.5 3 16 3 10C3 6 6 3 10 3C13 3 16 5 18 8C20 5 23 3 26 3C30 3 33 6 33 10C33 16 18 22.5 18 22.5Z" />
+                    </svg>
+                </label>
             </div>
         </div>
     </div>
@@ -1773,6 +2055,7 @@
             let scrollbarTimeout = null;
             let currentCardIndex = 0;
             const popupBody = document.querySelector('.case-popup-body');
+            const popupScroll = document.querySelector('.case-popup');
 
             function openPopup(card) {
                 const index = Array.prototype.indexOf.call(cards, card);
@@ -1792,18 +2075,16 @@
                 if (nextBtn) {
                     nextBtn.disabled = index >= cards.length - 1;
                 }
-                if (popupBody) {
-                    popupBody.classList.remove('is-scrolling');
-                    popupBody.scrollTop = 0;
-                }
+                if (popupScroll) popupScroll.scrollTop = 0;
+                if (popupBody) popupBody.classList.remove('is-scrolling');
                 document.documentElement.classList.add('popup-open');
                 document.body.style.overflow = 'hidden';
                 overlay.classList.add('is-open');
                 overlay.setAttribute('aria-hidden', 'false');
             }
 
-            if (popupBody) {
-                popupBody.addEventListener('scroll', function () {
+            if (popupBody && popupScroll) {
+                popupScroll.addEventListener('scroll', function () {
                     popupBody.classList.add('is-scrolling');
                     clearTimeout(scrollbarTimeout);
                     scrollbarTimeout = setTimeout(function () {
@@ -1817,6 +2098,29 @@
                 overlay.setAttribute('aria-hidden', 'true');
                 document.documentElement.classList.remove('popup-open');
                 document.body.style.overflow = '';
+                var adhdToggle = document.getElementById('casePopupAdhdToggle');
+                var adhdVideo = document.getElementById('casePopupAdhdVideo');
+                var adhdVideoEl = document.getElementById('casePopupAdhdVideoEl');
+                if (adhdToggle) adhdToggle.checked = false;
+                if (adhdVideo) adhdVideo.classList.remove('is-visible');
+                if (adhdVideoEl) adhdVideoEl.pause();
+            }
+
+            var adhdToggle = document.getElementById('casePopupAdhdToggle');
+            var adhdVideo = document.getElementById('casePopupAdhdVideo');
+            var adhdVideoEl = document.getElementById('casePopupAdhdVideoEl');
+            if (adhdToggle && adhdVideo && adhdVideoEl) {
+                adhdToggle.addEventListener('change', function () {
+                    if (adhdToggle.checked) {
+                        var n = 1 + Math.floor(Math.random() * 7);
+                        adhdVideoEl.src = 'video/sdvg' + n + '.mp4';
+                        adhdVideo.classList.add('is-visible');
+                        adhdVideoEl.play();
+                    } else {
+                        adhdVideo.classList.remove('is-visible');
+                        adhdVideoEl.pause();
+                    }
+                });
             }
 
             cards.forEach(function (card) {
@@ -1846,13 +2150,27 @@
 
             var imageLightboxOverlay = document.getElementById('imageLightboxOverlay');
             var imageLightboxImage = document.getElementById('imageLightboxImage');
-            function openImageLightbox(src, fromBento) {
+            var imageLightboxContent = document.getElementById('imageLightboxContent');
+            var bentoFitScreenNumbers = [1, 3, 4, 9, 10, 11, 12, 14];
+            var lightboxZoomScale = 1;
+            function openImageLightbox(src, fromBento, fromCase1C) {
                 if (!imageLightboxImage || !imageLightboxOverlay) return;
-                imageLightboxOverlay.classList.remove('is-tall');
+                imageLightboxOverlay.classList.remove('is-tall', 'is-fit-screen', 'is-zoomable');
                 imageLightboxImage.style.width = '';
+                imageLightboxImage.style.height = '';
+                imageLightboxImage.style.transform = '';
+                lightboxZoomScale = 1;
+                var forceFitScreen = fromBento && bentoFitScreenNumbers.some(function (n) {
+                    return src.indexOf('bento/' + n + '.png') !== -1 || src.indexOf('bento/' + n + '.PNG') !== -1;
+                });
+                if (forceFitScreen) imageLightboxOverlay.classList.add('is-fit-screen');
+                if (fromCase1C) imageLightboxOverlay.classList.add('is-zoomable');
                 imageLightboxImage.onload = function () {
                     imageLightboxImage.onload = null;
-                    if (!fromBento) return;
+                    if (imageLightboxOverlay.classList.contains('is-zoomable')) {
+                        applyLightboxZoom();
+                    }
+                    if (!fromBento || forceFitScreen) return;
                     var nw = imageLightboxImage.naturalWidth;
                     var nh = imageLightboxImage.naturalHeight;
                     if (!nw || !nh) return;
@@ -1863,14 +2181,120 @@
                 };
                 imageLightboxImage.src = src;
                 imageLightboxOverlay.classList.add('is-open');
+                document.documentElement.classList.add('popup-open');
+                document.body.style.overflow = 'hidden';
                 if (imageLightboxImage.complete) imageLightboxImage.onload();
             }
             function closeImageLightbox() {
                 if (imageLightboxOverlay) {
-                    imageLightboxOverlay.classList.remove('is-open');
-                    imageLightboxOverlay.classList.remove('is-tall');
+                    imageLightboxOverlay.classList.remove('is-open', 'is-tall', 'is-fit-screen', 'is-zoomable');
                 }
-                if (imageLightboxImage) imageLightboxImage.style.width = '';
+                document.documentElement.classList.remove('popup-open');
+                document.body.style.overflow = '';
+                if (imageLightboxImage) {
+                    imageLightboxImage.style.width = '';
+                    imageLightboxImage.style.height = '';
+                    imageLightboxImage.style.transform = '';
+                }
+                lightboxZoomScale = 1;
+            }
+            function applyLightboxZoom() {
+                if (!imageLightboxImage || !imageLightboxOverlay.classList.contains('is-zoomable')) return;
+                var nw = imageLightboxImage.naturalWidth;
+                var nh = imageLightboxImage.naturalHeight;
+                if (!nw || !nh) return;
+                var maxW = (imageLightboxContent && imageLightboxContent.clientWidth) || (window.innerWidth - 48);
+                var maxH = window.innerHeight - 96;
+                var fitScale = Math.min(1, maxW / nw, maxH / nh);
+                var baseW = nw * fitScale;
+                var baseH = nh * fitScale;
+                imageLightboxImage.style.width = (baseW * lightboxZoomScale) + 'px';
+                imageLightboxImage.style.height = (baseH * lightboxZoomScale) + 'px';
+            }
+            var LIGHTBOX_ZOOM_LEVELS = [1, 1.2, 1.5, 1.75, 2, 2.4];
+            var lightboxDragging = false;
+            var lightboxDragStartX = 0;
+            var lightboxDragStartY = 0;
+            var lightboxDragScrollLeft = 0;
+            var lightboxDragScrollTop = 0;
+            function onLightboxMouseDown(e) {
+                if (!imageLightboxOverlay.classList.contains('is-open') || !imageLightboxOverlay.classList.contains('is-zoomable')) return;
+                if (e.target !== imageLightboxImage) return;
+                e.preventDefault();
+                lightboxDragging = false;
+                lightboxDragStartX = e.clientX;
+                lightboxDragStartY = e.clientY;
+                lightboxDragScrollLeft = imageLightboxContent.scrollLeft;
+                lightboxDragScrollTop = imageLightboxContent.scrollTop;
+                document.body.style.cursor = 'grabbing';
+                document.body.style.userSelect = 'none';
+                document.addEventListener('mousemove', onLightboxMouseMove);
+                document.addEventListener('mouseup', onLightboxMouseUp);
+            }
+            function onLightboxMouseMove(e) {
+                var dx = e.clientX - lightboxDragStartX;
+                var dy = e.clientY - lightboxDragStartY;
+                if (Math.abs(dx) > 3 || Math.abs(dy) > 3) lightboxDragging = true;
+                imageLightboxContent.scrollLeft = Math.max(0, Math.min(lightboxDragScrollLeft - dx, imageLightboxContent.scrollWidth - imageLightboxContent.clientWidth));
+                imageLightboxContent.scrollTop = Math.max(0, Math.min(lightboxDragScrollTop - dy, imageLightboxContent.scrollHeight - imageLightboxContent.clientHeight));
+            }
+            function onLightboxMouseUp() {
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                document.removeEventListener('mousemove', onLightboxMouseMove);
+                document.removeEventListener('mouseup', onLightboxMouseUp);
+            }
+            var lastLightboxClickTime = 0;
+            var lightboxClickTimeout = null;
+            var LIGHTBOX_DBLCLICK_MS = 250;
+            if (imageLightboxImage && imageLightboxContent) {
+                imageLightboxImage.addEventListener('mousedown', onLightboxMouseDown);
+                imageLightboxImage.addEventListener('click', function (e) {
+                    if (!imageLightboxOverlay.classList.contains('is-open') || !imageLightboxOverlay.classList.contains('is-zoomable')) return;
+                    if (e.target !== imageLightboxImage) return;
+                    if (lightboxDragging) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var now = Date.now();
+                    if (now - lastLightboxClickTime < LIGHTBOX_DBLCLICK_MS) {
+                        if (lightboxClickTimeout) {
+                            clearTimeout(lightboxClickTimeout);
+                            lightboxClickTimeout = null;
+                        }
+                        lastLightboxClickTime = 0;
+                        lightboxZoomScale = 1;
+                        applyLightboxZoom();
+                        imageLightboxContent.scrollLeft = 0;
+                        imageLightboxContent.scrollTop = 0;
+                        return;
+                    }
+                    lastLightboxClickTime = now;
+                    if (lightboxClickTimeout) clearTimeout(lightboxClickTimeout);
+                    lightboxClickTimeout = setTimeout(function () {
+                        lightboxClickTimeout = null;
+                        var oldScale = lightboxZoomScale;
+                        var idx = LIGHTBOX_ZOOM_LEVELS.indexOf(oldScale);
+                        if (idx === -1) idx = 0;
+                        var nextIdx = Math.min(idx + 1, LIGHTBOX_ZOOM_LEVELS.length - 1);
+                        var newScale = LIGHTBOX_ZOOM_LEVELS[nextIdx];
+                        if (newScale <= oldScale) return;
+                        var offsetX = e.offsetX;
+                        var offsetY = e.offsetY;
+                        lightboxZoomScale = newScale;
+                        applyLightboxZoom();
+                        var contentRect = imageLightboxContent.getBoundingClientRect();
+                        var pointX = offsetX * (newScale / oldScale);
+                        var pointY = offsetY * (newScale / oldScale);
+                        var scrollLeft = pointX - (e.clientX - contentRect.left);
+                        var scrollTop = pointY - (e.clientY - contentRect.top);
+                        imageLightboxContent.scrollLeft = Math.max(0, Math.min(scrollLeft, imageLightboxContent.scrollWidth - imageLightboxContent.clientWidth));
+                        imageLightboxContent.scrollTop = Math.max(0, Math.min(scrollTop, imageLightboxContent.scrollHeight - imageLightboxContent.clientHeight));
+                    }, LIGHTBOX_DBLCLICK_MS);
+                });
             }
             if (popupBody) {
                 popupBody.addEventListener('click', function (e) {
@@ -1878,7 +2302,9 @@
                     if (!img) return;
                     e.preventDefault();
                     e.stopPropagation();
-                    openImageLightbox(img.src);
+                    var desc = cards[currentCardIndex] && cards[currentCardIndex].querySelector('.cases-article-descriptor');
+                    var fromCase1C = desc && desc.textContent.trim() === '1C';
+                    openImageLightbox(img.src, false, fromCase1C);
                 });
             }
             var imagesSection = document.querySelector('.images-section');
