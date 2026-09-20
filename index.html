@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <script>
+    (function () { try { var pathLang = window.location.pathname.replace(/\/+$/, '') === '/en' ? 'en' : 'ru'; var v = window.location.pathname.replace(/\/+$/, '') === '/en' ? 'en' : localStorage.getItem('siteLang'); document.documentElement.lang = (v === 'en' || v === 'ru') ? v : pathLang; } catch (e) {} })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Сергей Нохрин — портфолио</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            --site-bg-gradient: linear-gradient(90deg, #0a0a0a 0%, #101010 50%, #0a0a0a 100%);
+            background: var(--site-bg-gradient);
+            cursor: url('images/cursor.png'), auto;
+            scrollbar-width: thin;
+            scrollbar-color: #8F8F8F transparent;
+            scrollbar-gutter: stable;
+            overflow-x: hidden;
+        }
+        html::-webkit-scrollbar { width: 8px; }
+        html::-webkit-scrollbar-track { background: var(--site-bg-gradient); }
+        html::-webkit-scrollbar-thumb { background: #8F8F8F; border-radius: 4px; }
+        html::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; margin: 0 auto 32px auto; padding: 0; cursor: url('images/cursor.png'), auto; line-height: 1.6; box-sizing: border-box; width: 100%; max-width: 1000px; background: transparent; color: #FFFFFF; min-height: 100vh; min-width: 0; }
+        a { color: #FFFFFF; cursor: url('images/cursor.png'), pointer; }
+        a:hover { cursor: url('images/cursorhover.png'), pointer; }
+        @keyframes avatar-float {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        .avatar-wrap-center { text-align: center; margin-top: 160px; margin-bottom: 1.5rem; }
+        .avatar-wrap { position: relative; display: inline-block; cursor: url('images/cursor.png'), pointer; animation: avatar-float 3s ease-in-out infinite; }
+        .avatar-wrap:hover { cursor: url('images/cursorhover.png'), pointer; }
+        .avatar-emoji { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 48px; z-index: 2; opacity: 0; transition: opacity 0.25s ease; pointer-events: none; }
+        .avatar-wrap::after { content: ''; position: absolute; inset: 0; border-radius: 24px; background: rgba(175, 251, 65, 0.24); z-index: 1; opacity: 0; transition: opacity 0.25s ease; pointer-events: none; }
+        .avatar-wrap:hover .avatar-emoji,
+        .avatar-wrap:hover::after { opacity: 1; }
+        .confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+        .confetti-piece { position: absolute; transform-origin: center; animation: confetti-burst 0.9s ease-out forwards; font-size: 24px; line-height: 1; pointer-events: none; }
+        @keyframes confetti-burst {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) rotate(var(--r, 0deg)); opacity: 0; }
+        }
+        .avatar { display: block; width: 128px; height: 128px; object-fit: cover; border-radius: 24px; margin-bottom: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.55); }
+        .hero-title { font-size: clamp(24px, 4.2vw, 32px); line-height: 1.3; font-weight: 500; text-align: center; margin: 48px 0 80px 0; }
+        .hero-subtitle { color: #FFFFFF; font-size: clamp(24px, 4.2vw, 32px); line-height: 1.45; font-weight: 500; position: relative; display: inline-block; cursor: default; }
+        .hero-subtitle .strong-wrap { background: linear-gradient(90deg, #AFFB41 50%, #8F8F8F 50%); background-size: 200% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; color: transparent; transition: background-position 1.6s ease; }
+        .hero-subtitle.is-in-view .strong-wrap { background-position: 0 0; }
+        .hero-section { padding: 0; margin-bottom: 48px; }
+        .cases-articles { display: grid; grid-template-columns: 1fr; gap: 64px; max-width: 800px; width: 100%; margin-left: auto; margin-right: auto; box-sizing: border-box; }
+        .cases-article-card { display: flex; flex-direction: column; align-items: stretch; gap: 24px; width: 100%; min-width: 0; overflow: hidden; border-radius: 0; background: transparent; position: relative; box-shadow: none; }
+        .cases-article-card .cases-article-body { flex: 1; min-width: 0; padding: 0; display: flex; flex-direction: column; justify-content: flex-start; }
+        .cases-article-image-wrap { flex: none; position: relative; width: 100%; max-width: none; height: 400px; overflow: hidden; margin: 0; border-radius: 16px; }
+        .cases-article-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
+        .cases-article-read-btn { position: absolute; right: 16px; bottom: 16px; left: auto; z-index: 2; display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 10px; background: #FFFFFF; border: 1px solid #CFCFCF; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); color: #0a0a0a; font-size: 15px; font-weight: 500; font-family: inherit; -webkit-appearance: none; appearance: none; cursor: pointer; box-sizing: border-box; transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+        .cases-article-read-btn:hover { opacity: 0.92; background: #f0f0f0; }
+        @media (max-width: 768px) {
+            body { padding-left: 16px; padding-right: 16px; }
+            .hero-title { margin: 32px 0 56px 0; }
+            .cases-articles { grid-template-columns: 1fr; }
+            .cases-article-image-wrap { height: auto; aspect-ratio: 2 / 1; }
+            .cases-article-title { font-size: 22px; }
+            .cases-article-title--split { font-size: 22px; }
+            .cases-article-title--split { flex-direction: column; align-items: stretch; gap: 12px; }
+            .cases-article-title--split > .cases-article-title-part { white-space: normal; text-align: left; }
+            .cases-article-title--split.cases-article-title--split--swap-styles {
+                flex-direction: column;
+                flex-wrap: nowrap;
+                overflow-x: visible;
+                gap: 12px;
+            }
+            .cases-article-title--split.cases-article-title--split--swap-styles > .cases-article-title-part { white-space: normal; }
+        }
+        .cases-article-title { font-weight: 500; font-size: 24px; line-height: 1.35; color: #FFFFFF; margin: 0; }
+        .cases-article-title + .cases-article-title { margin-top: 0.35em; }
+        .cases-article-title--split { display: flex; justify-content: flex-start; align-items: center; gap: 16px; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; font-size: clamp(14px, 2.35vw, 24px); }
+        .cases-article-title--split > .cases-article-title { flex: 0 0 auto; text-align: left; margin: 0; font-size: inherit; line-height: inherit; font-weight: inherit; }
+        .cases-article-title--split > .cases-article-title-part { flex: 1 1 auto; min-width: 0; text-align: right; white-space: nowrap; color: rgba(255, 255, 255, 0.52); font-weight: 400; }
+        .cases-article-title--split--swap-styles > .cases-article-title { color: rgba(255, 255, 255, 0.52); font-weight: 400; }
+        .cases-article-title--split--swap-styles > .cases-article-title-part { color: #FFFFFF; font-weight: 500; }
+        .cases-article-title--split.cases-article-title--split--swap-styles {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: baseline;
+            justify-content: flex-start;
+            gap: 0.35em;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+        .cases-article-title--split.cases-article-title--split--swap-styles > .cases-article-title-part {
+            flex: 0 1 auto;
+            min-width: 0;
+            text-align: left;
+            white-space: nowrap;
+        }
+        @media (max-width: 640px) {
+            .cases-article-title { font-size: 21px; }
+            .cases-article-title--split { font-size: 21px; }
+            .cases-article-title--split { flex-direction: column; align-items: stretch; gap: 16px; }
+            .cases-article-title--split > .cases-article-title-part { white-space: normal; text-align: left; }
+            .cases-article-title--split.cases-article-title--split--swap-styles {
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: stretch;
+            }
+            .cases-article-title--split.cases-article-title--split--swap-styles > .cases-article-title-part {
+                white-space: normal;
+            }
+        }
+        .cases-article-description { font-size: 16px; line-height: 1.55; font-weight: 400; color: rgba(255,255,255,0.72); margin: 24px 0 0 0; width: 100%; max-width: none; box-sizing: border-box; align-self: stretch; }
+        .cases-article-meta-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 48px; margin-top: 24px; align-self: stretch; }
+        .cases-article-meta-item { flex: 1 1 0; min-width: min(140px, 100%); box-sizing: border-box; }
+        .cases-article-meta-label { font-size: 16px; line-height: 1.45; letter-spacing: normal; text-transform: none; color: rgba(255,255,255,0.72); margin: 0 0 4px 0; font-weight: 400; }
+        .cases-article-meta-value { font-size: 16px; line-height: 1.45; color: rgba(255,255,255,0.95); margin: 0; font-weight: 400; }
+        /* Карьера */
+        .careers-section {
+            margin: 64px auto 64px;
+            padding: 0;
+            text-align: center;
+        }
+        .careers-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #FFFFFF;
+            text-align: center;
+            margin: 0 0 24px 0;
+        }
+        .careers-list {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .career-item {
+            margin-bottom: 0;
+            cursor: default;
+            background-color: #1a1a1a;
+            padding: 24px;
+            box-sizing: border-box;
+            border-radius: 16px;
+            text-align: left;
+        }
+        .career-item:not(:last-child) { margin-bottom: 16px; }
+        .career-period {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.25;
+            color: #c1c6d1;
+            margin-bottom: 8px;
+            text-align: left;
+            cursor: default;
+        }
+        .career-position {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 1.25;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            text-align: left;
+            cursor: default;
+        }
+        .career-position a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .career-position a:hover { color: #AFFB41; }
+        .career-description {
+            display: block;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.72);
+            margin-top: 8px;
+            text-align: left;
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .career-description ul { list-style: none; padding-left: 0; margin: 0; }
+        .career-description li { margin-bottom: 4px; }
+        .career-description li::before { content: "- "; }
+        @media (max-width: 768px) {
+            .careers-section h2 { font-size: 32px; line-height: 40px; }
+            .career-period { font-size: 16px; }
+            .career-position { font-size: 24px; }
+            .career-description { font-size: 16px; }
+        }
+        .site-header { position: relative; z-index: 100; margin-bottom: 0; padding: 12px 0; background: transparent; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+        .site-header-brand { display: flex; align-items: center; flex-shrink: 0; }
+        .site-header-logo { display: block; height: 24px; width: auto; max-width: 240px; object-fit: contain; object-position: left center; }
+        .site-header-end { display: flex; flex-direction: row; align-items: center; justify-content: flex-end; margin-left: auto; flex: 1; min-width: 0; }
+        .site-header-lang { order: 2; margin-left: 12px; margin-right: 0; }
+        .burger-btn {
+            display: none;
+            order: 3;
+            width: 42px;
+            height: 42px;
+            position: relative;
+            border-radius: 0;
+            border: none;
+            background: transparent;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .burger-btn span,
+        .burger-btn::before,
+        .burger-btn::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 2px;
+            background: #FFFFFF;
+            border-radius: 2px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .burger-btn span { transform: translate(-50%, -50%); }
+        .burger-btn--menu::before { transform: translate(-50%, calc(-50% - 6px)); }
+        .burger-btn--menu::after { transform: translate(-50%, calc(-50% + 6px)); }
+        .burger-btn--close span { opacity: 0; }
+        .burger-btn--close::before { transform: translate(-50%, -50%) rotate(45deg); }
+        .burger-btn--close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+        .site-nav .lang-switch { flex-shrink: 0; align-self: center; }
+        .lang-switch { display: inline-flex; align-items: center; gap: 0; border-radius: 10px; padding: 3px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1); box-sizing: border-box; }
+        .lang-switch-btn {
+            margin: 0; padding: 6px 12px; border: none; border-radius: 8px; background: transparent; color: #8F8F8F;
+            font-family: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+        .lang-switch-btn:hover { color: #FFFFFF; cursor: url('images/cursorhover.png'), pointer; }
+        .lang-switch-btn.is-active { background: rgba(255, 255, 255, 0.14); color: #FFFFFF; }
+        .site-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px; margin-left: 0; flex: 1; min-width: 0; order: 1; }
+        .site-nav-btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 12px; background: transparent; border: none; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 500; transition: opacity 0.2s ease; cursor: url('images/cursor.png'), pointer; box-sizing: border-box; }
+        .site-nav-btn:hover { opacity: 0.85; text-decoration: underline; text-underline-offset: 4px; cursor: url('images/cursorhover.png'), pointer; }
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2500;
+            background: var(--site-bg-gradient);
+            display: none;
+            flex-direction: column;
+            padding: 20px 16px 28px;
+            box-sizing: border-box;
+        }
+        .mobile-menu-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .mobile-menu-logo {
+            display: block;
+            height: 24px;
+            width: auto;
+            object-fit: contain;
+        }
+        .mobile-menu-nav {
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            width: 100%;
+        }
+        .mobile-menu-nav .site-nav-btn { font-size: 20px; }
+        .mobile-menu-nav .lang-switch { margin-top: 6px; }
+        html.menu-open .mobile-menu-overlay { display: flex; }
+        html.menu-open {
+            overflow: hidden;
+            padding-right: calc(100vw - 100%);
+        }
+        @media (max-width: 900px) {
+            .site-header {
+                align-items: center;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .site-header-end { flex: 0; margin-left: auto; }
+            .site-header .site-nav { display: none; }
+            .site-header-lang { display: inline-flex; order: 1; margin-left: 0; margin-right: 32px; }
+            .burger-btn { display: inline-flex; order: 2; position: relative; }
+        }
+        .site-footer-nav {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 64px 16px 0;
+            box-sizing: border-box;
+            background: transparent;
+        }
+        .site-footer-nav .site-nav--centered {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 0;
+            flex: none;
+            width: 100%;
+        }
+        .lang-panel[hidden] { display: none !important; }
+        /* Работы — галерея как в portfolio.html */
+        .images-section {
+            overflow-x: clip;
+            overflow-y: hidden;
+            padding: 0;
+            margin: 64px 0 0;
+            position: relative;
+            z-index: 1;
+            width: 100vw;
+            left: 50%;
+            transform: translateX(-50%);
+            box-sizing: border-box;
+        }
+        .images-section-heading { margin-bottom: 0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 0 16px; box-sizing: border-box; }
+        .images-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #FFFFFF;
+            text-align: center;
+            margin: 0 0 32px 0;
+        }
+        .images-section-wrapper {
+            display: flex;
+            gap: 16px;
+            width: fit-content;
+            animation: works-gallery-scroll 51s linear infinite;
+            will-change: transform;
+        }
+        @keyframes works-gallery-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .images-section-wrapper { animation: none; }
+        }
+        .image-frame {
+            width: 400px;
+            height: 560px;
+            aspect-ratio: 400 / 560;
+            min-width: 400px;
+            border-radius: 32px;
+            background-color: #1a1a1a;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            cursor: pointer;
+            padding: 24px 24px 0 24px;
+            box-sizing: border-box;
+        }
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            border-radius: 12px 12px 0 0;
+        }
+        .image-frame.image-frame--fit img {
+            object-fit: contain;
+            object-position: center center;
+            border-radius: 24px;
+        }
+        @media (max-width: 1000px) {
+            .image-frame {
+                width: 320px;
+                min-width: 320px;
+                height: 448px;
+            }
+        }
+        @media (max-width: 768px) {
+            .images-section h2 { font-size: 32px; line-height: 40px; }
+            .image-frame {
+                width: 100%;
+                max-width: 400px;
+                min-width: 280px;
+                height: auto;
+            }
+        }
+        html.popup-open { overflow: hidden; }
+        .case-popup-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1;
+            color: #FFFFFF;
+            z-index: 3010;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .case-popup-close:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.22); }
+        .image-lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+        .image-lightbox-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .image-lightbox-overlay .case-popup-close { z-index: 3010; }
+        .image-lightbox-content {
+            overflow: auto;
+            max-height: 100vh;
+            max-width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+        .image-lightbox-overlay img {
+            max-width: 100%;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .image-lightbox-overlay.is-tall .image-lightbox-content {
+            overflow: auto;
+            align-items: flex-start;
+        }
+        .image-lightbox-overlay.is-tall img {
+            width: 1440px;
+            max-width: 100%;
+            height: auto;
+            max-height: none;
+        }
+        .image-lightbox-overlay.is-fit-screen img {
+            max-width: 100%;
+            max-height: calc(100vh - 96px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+        .image-lightbox-overlay.is-zoomable img {
+            max-width: none;
+            max-height: none;
+            cursor: grab;
+        }
+        .image-lightbox-overlay.is-zoomable img:active { cursor: grabbing; }
+        /* Рекомендации — как в portfolio.html (тёмная тема) */
+        .recommendations-section {
+            margin: 64px auto 64px;
+            padding: 0;
+        }
+        .recommendations-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #FFFFFF;
+            text-align: center;
+            margin: 0 0 32px 0;
+        }
+        .recommendations-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .recommendations-list > .lang-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .recommendation-card {
+            width: 100%;
+            min-width: 0;
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            padding: 32px;
+            box-sizing: border-box;
+            border: none;
+        }
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .recommendation-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 51.2px;
+            background-color: #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .recommendation-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .recommendation-info { flex: 1; min-width: 0; }
+        .recommendation-name {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 1.25;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+        }
+        .recommendation-title {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 1.1;
+            color: rgba(255, 255, 255, 0.64);
+        }
+        .recommendation-email {
+            display: block;
+            margin-top: 6px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.4;
+            color: #AFFB41;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        .recommendation-email:hover { text-decoration: underline; opacity: 0.9; }
+        .recommendation-text {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 140%;
+            color: rgba(255, 255, 255, 0.85);
+            overflow-wrap: anywhere;
+        }
+        .recommendation-card.is-collapsed .recommendation-text {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+        .recommendation-card.is-collapsed .recommendation-text p {
+            margin: 0;
+        }
+        .recommendation-text p { margin: 0; }
+        .recommendation-text p + p { margin-top: 16px; }
+        .recommendation-toggle {
+            margin-top: 16px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: #AFFB41;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.3;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .recommendation-toggle:hover { opacity: 0.9; }
+        @media (max-width: 768px) {
+            .recommendations-section h2 { font-size: 32px; line-height: 40px; }
+            .recommendation-name { font-size: 24px; }
+            .recommendation-title { font-size: 18px; }
+            .recommendation-text { font-size: 16px; }
+        }
+        /* Хобби */
+        .hobbies-section {
+            margin: 64px auto 64px;
+            padding: 0;
+        }
+        .hobbies-section h2 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 40px;
+            color: #FFFFFF;
+            text-align: center;
+            margin: 0 0 32px 0;
+        }
+        .hobbies-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .hobby-card {
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            padding: 24px;
+            box-sizing: border-box;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.45;
+            text-align: center;
+        }
+        .hobby-card .hobby-photos { margin-top: 16px; }
+        .hobby-card a {
+            color: #AFFB41;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .hobby-card a:hover { opacity: 0.9; }
+        .hobby-photos {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+        .hobby-photos--cooking {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            overflow: visible;
+        }
+        .hobby-photo {
+            margin: 0;
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .hobby-photo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-height: 420px;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .hobbies-section h2 { font-size: 32px; line-height: 40px; }
+            .hobby-photos { grid-template-columns: 1fr; }
+            .hobby-photo img { max-height: 320px; }
+            .hobby-photos--cooking { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+
+        /* Попап полного кейса — в стиле текущей страницы (тёмная тема) */
+        .case-popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        .case-popup-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        html.popup-open { overflow: hidden; }
+        .case-popup {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0a0a0a;
+            color: #FFFFFF;
+            border-radius: 0;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: none;
+            padding: 24px 24px 40px;
+            box-sizing: border-box;
+            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        }
+        .case-popup::-webkit-scrollbar { width: 8px; }
+        .case-popup::-webkit-scrollbar-track { background: transparent; }
+        .case-popup::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 4px; }
+        .case-popup::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.45); }
+        .case-popup-adhd {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0;
+            z-index: 2010;
+        }
+        .case-popup-adhd-video {
+            margin-bottom: 0;
+            max-height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.6s ease, visibility 0.6s ease, transform 0.6s ease, max-height 0.6s ease, margin-bottom 0.6s ease;
+        }
+        .case-popup-adhd-video.is-visible {
+            margin-bottom: 16px;
+            max-height: 520px;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .case-popup-adhd-video video { width: 280px; height: auto; display: block; }
+        .case-popup-adhd-row { display: flex; align-items: center; gap: 8px; }
+        .case-popup-adhd-label { font-size: 14px; color: rgba(255, 255, 255, 0.55); }
+        @media (max-width: 768px) { .case-popup-adhd { display: none !important; } }
+        .heart-switch {
+            --duration: .45s;
+            --stroke: rgba(255, 255, 255, 0.35);
+            --stroke-active: #ec4472;
+            --fill: #2a2a2a;
+            --fill-active: #ec638e;
+            --shadow: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            position: relative;
+            transform: scale(var(--s, 1)) translateZ(0);
+            transition: transform .2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .heart-switch:active { --s: .95; }
+        .heart-switch input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            position: absolute;
+            outline: none;
+            border: none;
+            pointer-events: none;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+            left: 1px;
+            top: 1px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #3a3a3a;
+            box-shadow: 0 1px 3px 0 var(--shadow);
+        }
+        .heart-switch input + svg {
+            width: 36px;
+            height: 25px;
+            fill: var(--fill);
+            stroke: var(--stroke);
+            stroke-width: 1px;
+            stroke-linejoin: round;
+            display: block;
+            transition: stroke var(--duration), fill var(--duration);
+        }
+        .heart-switch input:not(:checked) { animation: heart-uncheck var(--duration) linear forwards; }
+        .heart-switch input:checked { animation: heart-check var(--duration) linear forwards; }
+        .heart-switch input:checked + svg { fill: var(--fill-active); stroke: var(--stroke-active); }
+        @keyframes heart-uncheck {
+            0% { transform: rotate(-30deg) translateX(13.5px) translateY(8px); }
+            50% { transform: rotate(30deg) translateX(9px); }
+            75% { transform: rotate(30deg) translateX(4.5px) scaleX(1.1); }
+            100% { transform: rotate(30deg); }
+        }
+        @keyframes heart-check {
+            0% { transform: rotate(30deg); }
+            25% { transform: rotate(30deg) translateX(4.5px) scaleX(1.1); }
+            50% { transform: rotate(30deg) translateX(9px); }
+            100% { transform: rotate(-30deg) translateX(13.5px) translateY(8px); }
+        }
+        .case-popup-image-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 2 / 1;
+            background: #1a1a1a;
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+        .case-popup-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .case-popup-body { padding: 0; overflow: visible; }
+        .case-popup-title {
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 1.35;
+            color: #FFFFFF;
+            margin: 0 0 20px 0;
+        }
+        .case-popup-text {
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .case-popup-text a {
+            color: #AFFB41;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        .case-popup-text a:hover { opacity: 0.85; text-decoration: underline; text-underline-offset: 3px; }
+        .case-popup-text strong { color: #FFFFFF; font-weight: 600; }
+        .case-popup-text p { margin: 0 0 16px 0; }
+        .case-popup-text p:last-child { margin-bottom: 0; }
+        .case-popup-text ol, .case-popup-text ul {
+            margin: 0 0 16px 0;
+            padding-left: 2em;
+            list-style-position: outside;
+        }
+        .case-popup-text ol { list-style-type: decimal !important; list-style: decimal outside none !important; }
+        .case-popup-text ul { list-style-type: disc !important; list-style: disc outside none !important; }
+        .case-popup-text li { margin-bottom: 6px; padding-left: 0.25em; color: rgba(255, 255, 255, 0.88); }
+        .case-popup-text .case-popup-inline-image { margin: 16px 0; cursor: pointer; }
+        .case-popup-text .case-popup-inline-image img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+        }
+        .case-popup-divider { height: 1px; background: rgba(255, 255, 255, 0.1); margin: 32px 0 24px 0; border: none; }
+        .case-popup-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .case-popup-nav-link {
+            font-weight: 500;
+            font-size: 16px;
+            color: #0a0a0a;
+            text-decoration: none;
+            background: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            padding: 12px 18px;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35em;
+            transition: opacity 0.2s ease, background 0.2s ease;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .case-popup-nav-link:hover:not(:disabled) { opacity: 0.95; background: #f0f0f0; }
+        .case-popup-nav-link .link-arrow { display: inline-block; transition: margin-left 0.2s ease; }
+        .case-popup-nav-link--next:hover:not(:disabled) .link-arrow { margin-left: 0.5em; }
+        .case-popup-nav-link--prev .link-arrow { order: -1; transition: margin-right 0.2s ease; }
+        .case-popup-nav-link--prev:hover:not(:disabled) .link-arrow { margin-right: 0.5em; }
+        .case-popup-nav-link:disabled {
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.28);
+            color: rgba(10, 10, 10, 0.38);
+        }
+        .case-popup-overlay > .case-popup-close { z-index: 2010; }
+        .case-popup-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 740px;
+        }
+        .image-lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+        .image-lightbox-overlay.is-open { opacity: 1; visibility: visible; }
+        .image-lightbox-overlay .case-popup-close { z-index: 10; }
+        .image-lightbox-content {
+            overflow: auto;
+            max-height: 100vh;
+            max-width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+        .image-lightbox-overlay img {
+            max-width: 100%;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .image-lightbox-overlay.is-tall .image-lightbox-content { overflow: auto; align-items: flex-start; }
+        .image-lightbox-overlay.is-tall img { width: 1440px; max-width: 100%; height: auto; max-height: none; }
+        .image-lightbox-overlay.is-fit-screen img {
+            max-width: 100%;
+            max-height: calc(100vh - 96px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+        .image-lightbox-overlay.is-zoomable img { max-width: none; max-height: none; cursor: grab; }
+        .image-lightbox-overlay.is-zoomable img:active { cursor: grabbing; }
+        </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="site-header-brand">
+        <img src="images/logo.png" alt="" class="site-header-logo" height="24" data-i18n-alt="logoAlt">
+    </div>
+    <div class="site-header-end">
+        <div class="lang-switch site-header-lang" role="group" aria-label="Language">
+            <button type="button" class="lang-switch-btn is-active" id="langBtnRu" data-set-lang="ru" aria-pressed="true">RU</button>
+            <button type="button" class="lang-switch-btn" id="langBtnEn" data-set-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="burger-btn burger-btn--menu" id="menuToggle" aria-label="Open menu">
+            <span></span>
+        </button>
+        <nav class="site-nav">
+            <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="site-nav-btn">Telegram</a>
+            <a href="https://www.linkedin.com/in/sergeyflaer/" target="_blank" rel="noopener noreferrer" class="site-nav-btn">LinkedIn</a>
+            <a href="mailto:sergeyflaer@gmail.com" class="site-nav-btn">E-mail</a>
+            <a href="CV Продуктовый Дизайнер - Нохрин Сергей Евгеньевич.pdf" download class="site-nav-btn" data-cv-ru="CV Продуктовый Дизайнер - Нохрин Сергей Евгеньевич.pdf" data-cv-en="CV Product Designer - Nokhrin Sergey.pdf">CV</a>
+            <a href="en/for-agents.html" class="site-nav-btn">For Agents</a>
+        </nav>
+    </div>
+</header>
+<div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-top">
+        <img src="images/logo.png" alt="" class="mobile-menu-logo" data-i18n-alt="logoAlt">
+        <button type="button" class="burger-btn burger-btn--close" id="menuClose" aria-label="Close menu">
+            <span></span>
+        </button>
+    </div>
+    <nav class="mobile-menu-nav">
+        <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="site-nav-btn">Telegram</a>
+        <a href="https://www.linkedin.com/in/sergeyflaer/" target="_blank" rel="noopener noreferrer" class="site-nav-btn">LinkedIn</a>
+        <a href="mailto:sergeyflaer@gmail.com" class="site-nav-btn">E-mail</a>
+        <a href="CV Продуктовый Дизайнер - Нохрин Сергей Евгеньевич.pdf" download class="site-nav-btn" data-cv-ru="CV Продуктовый Дизайнер - Нохрин Сергей Евгеньевич.pdf" data-cv-en="CV Product Designer - Nokhrin Sergey.pdf">CV</a>
+        <a href="en/for-agents.html" class="site-nav-btn">For Agents</a>
+    </nav>
+</div>
+
+<section class="hero-section">
+    <div class="avatar-wrap-center">
+        <div class="avatar-wrap" id="avatarWrap">
+            <img src="images/avatar.png" alt="" class="avatar" data-i18n-alt="logoAlt">
+            <span class="avatar-emoji" id="avatarEmoji">🖐</span>
+        </div>
+    </div>
+    <h1 class="hero-title"><span data-i18n="heroName">Меня зовут Сергей Нохрин</span><br><span class="hero-subtitle" id="heroSubtitle" data-i18n="heroTagline">проектирую интерфейсы уже&nbsp;более&nbsp;5&nbsp;лет</span></h1>
+</section>
+
+<section class="cases-section" id="cases">
+    <div class="cases-articles" id="casesList"></div>
+</section>
+
+<div class="case-popup-overlay" id="casePopupOverlay" aria-hidden="true">
+    <button type="button" class="case-popup-close" id="casePopupClose" aria-label="Закрыть" data-i18n-aria="close">×</button>
+    <div class="case-popup" role="dialog" aria-modal="true" aria-labelledby="casePopupTitle">
+        <div class="case-popup-wrapper">
+            <div class="case-popup-body">
+                <div class="case-popup-image-wrap">
+                    <img id="casePopupImage" src="" alt="">
+                </div>
+                <h2 class="case-popup-title" id="casePopupTitle"></h2>
+                <div class="case-popup-text" id="casePopupText"></div>
+                <hr class="case-popup-divider">
+                <nav class="case-popup-nav">
+                    <button type="button" class="case-popup-nav-link case-popup-nav-link--prev" id="casePopupPrev" disabled><span data-i18n="casePrev">Предыдущий кейс</span></button>
+                    <button type="button" class="case-popup-nav-link case-popup-nav-link--next" id="casePopupNext"><span data-i18n="caseNext">Следующий кейс</span></button>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="case-popup-adhd">
+        <div class="case-popup-adhd-video" id="casePopupAdhdVideo">
+            <video id="casePopupAdhdVideoEl" src="video/sdvg1.mp4" loop muted playsinline></video>
+        </div>
+        <div class="case-popup-adhd-row">
+            <span class="case-popup-adhd-label" data-i18n="adhdLabel">Режим СДВГ</span>
+            <label class="heart-switch" aria-label="Режим СДВГ" data-i18n-aria="adhdLabel">
+                <input type="checkbox" id="casePopupAdhdToggle" />
+                <svg viewBox="0 0 36 25" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 22.5C18 22.5 3 16 3 10C3 6 6 3 10 3C13 3 16 5 18 8C20 5 23 3 26 3C30 3 33 6 33 10C33 16 18 22.5 18 22.5Z" />
+                </svg>
+            </label>
+        </div>
+    </div>
+</div>
+
+<script>
+window.CASES = [
+    {
+        title: 'Ozon Bank · Меняя отношение дизайнеров',
+        titleParts: ['Ozon Bank', 'Меняя отношение дизайнеров'],
+        swapTitleStyles: true,
+        description: 'Как мы работали над брендингом дизайн-системы банка, чтобы повысить доверие дизайнеров и используемость в проектах: разрешали кастом, устанавливали рамки, смягчали формулировки.',
+        image: 'images/case7.png',
+        imageAlt: 'Ozon Bank — меняя отношение дизайнеров',
+        role: 'Продуктовый дизайнер',
+        stack: 'Дизайн-система, брендинг',
+        users: '70+ продуктовых дизайнеров'
+    },
+    {
+        title: 'Salebot · Упрощая минимализм',
+        titleParts: ['Salebot', 'Упрощая минимализм'],
+        swapTitleStyles: true,
+        description: 'Комплексная платформа для автоматизации продаж — конструктор чат-ботов (MAX, Telegram, ВКонтакте, Авито и др.), встроенная CRM с историей общения и сделками, единое окно чатов, рассылки, аналитика, онлайн-запись, магазины, обучение, AI-ассистенты',
+        image: 'images/case1.png',
+        imageAlt: 'Salebot — Упрощая минимализм',
+        role: 'Продуктовый дизайнер',
+        stack: 'UX/UI Дизайн, Исследования',
+        users: '60k+ DAU'
+    },
+    {
+        title: 'ToYou · Исследование техподдержки через веб-камеры',
+        titleParts: ['ToYou', 'Исследование техподдержки через веб-камеры'],
+        swapTitleStyles: true,
+        description: 'Доработка сценариев и UI для поддержки с видеосвязью: согласование состояний, ошибок и обратной связи с пользователем.',
+        image: 'images/case2.png',
+        imageAlt: 'ToYou — исследование техподдержки через веб-камеры',
+        role: 'Продуктовый дизайнер',
+        stack: 'UX/UI Дизайн, Исследования',
+        users: '12.000 DAU'
+    },
+    {
+        title: 'Growth.pet · Оптимизация каналов связи с клиентом',
+        titleParts: ['Growth.pet', 'Оптимизация каналов связи с клиентом'],
+        swapTitleStyles: true,
+        description: 'Выстраивание коммуникаций с владельцами питомцев: точки контакта, уведомления и сценарии напоминаний.',
+        image: 'images/case3.png',
+        imageAlt: 'Growth.pet — оптимизация каналов связи',
+        role: 'Продуктовый дизайнер',
+        stack: 'UX/UI Дизайн, Исследования',
+        users: '40.000 DAU'
+    },
+    {
+        title: 'ToYou · Солнце и интерфейс за пределами экрана',
+        titleParts: ['ToYou', 'Солнце и интерфейс за пределами экрана'],
+        swapTitleStyles: true,
+        description: 'Работа с яркостью, контрастом и читаемостью интерфейса в условиях сильного освещения.',
+        image: 'images/case4.png',
+        imageAlt: 'ToYou — интерфейс при ярком освещении',
+        role: 'Продуктовый дизайнер',
+        stack: 'UX/UI Дизайн, Исследования',
+        users: '12.000 DAU'
+    },
+    {
+        title: '1С · Две дизайн-системы в продукте с 30-летним легаси',
+        titleParts: ['1С', 'Две дизайн-системы в продукте с 30-летним легаси'],
+        swapTitleStyles: true,
+        description: 'Сосуществование старой и новой ДС: правила миграции, совместимость компонентов и коммуникация с разработкой.',
+        image: 'images/case5.png',
+        imageAlt: '1С — разделение дизайн-систем',
+        role: 'Продуктовый дизайнер',
+        stack: 'UX/UI Дизайн, Дизайн-системы, Исследования',
+        users: 'Глобальная аудитория платформы'
+    },
+    {
+        title: 'Growth.pet · Груминг-салон: расписание и задачи грумера',
+        titleParts: ['Growth.pet', 'Груминг-салон: расписание и задачи грумера'],
+        swapTitleStyles: true,
+        description: 'Связь офлайн-процессов салона с цифровым расписанием и задачами без перегрузки интерфейса.',
+        image: 'images/case6.png',
+        imageAlt: 'Growth.pet — управление груминг-салоном',
+        role: 'Продуктовый дизайнер',
+        stack: 'UX/UI Дизайн, Исследования',
+        users: '8.000 DAU'
+    }
+];
+window.CASES_EN = [
+    {
+        title: 'Ozon Bank · Changing how designers see the system',
+        titleParts: ['Ozon Bank', 'Changing how designers see the system'],
+        swapTitleStyles: true,
+        description: 'How we worked on the bank design system branding to build designer trust and adoption across projects—allowing customization, setting boundaries, and softening the language.',
+        image: 'images/case7.png',
+        imageAlt: 'Ozon Bank — changing how designers see the system',
+        role: 'Product designer',
+        stack: 'Design system, Branding',
+        users: '70+ product designers'
+    },
+    {
+        title: 'Salebot · Simplifying minimalism',
+        titleParts: ['Salebot', 'Simplifying minimalism'],
+        swapTitleStyles: true,
+        description: 'End-to-end sales automation: chatbot builder (MAX, Telegram, VK, Avito, etc.), built-in CRM with chat and deal history, unified inbox, campaigns, analytics, booking, stores, training, AI assistants.',
+        image: 'images/case1.png',
+        imageAlt: 'Salebot — Simplifying minimalism',
+        role: 'Product designer',
+        stack: 'UX/UI design, Research',
+        users: '60k+ DAU'
+    },
+    {
+        title: 'ToYou · Researching support via web cameras',
+        titleParts: ['ToYou', 'Researching support via web cameras'],
+        swapTitleStyles: true,
+        description: 'Flows and UI for video support: aligning states, errors, and user feedback.',
+        image: 'images/case2.png',
+        imageAlt: 'ToYou — researching support via web cameras',
+        role: 'Product designer',
+        stack: 'UX/UI design, Research',
+        users: '12,000 DAU'
+    },
+    {
+        title: 'Growth.pet · Customer communication channels',
+        titleParts: ['Growth.pet', 'Customer communication channels'],
+        swapTitleStyles: true,
+        description: 'Communication with pet owners: touchpoints, notifications, and reminder flows.',
+        image: 'images/case3.png',
+        imageAlt: 'Growth.pet — communication channels',
+        role: 'Product designer',
+        stack: 'UX/UI design, Research',
+        users: '40,000 DAU'
+    },
+    {
+        title: 'ToYou · Sunlight and the interface beyond the screen',
+        titleParts: ['ToYou', 'Sunlight and the interface beyond the screen'],
+        swapTitleStyles: true,
+        description: 'Brightness, contrast, and readability in strong outdoor light.',
+        image: 'images/case4.png',
+        imageAlt: 'ToYou — interface in bright light',
+        role: 'Product designer',
+        stack: 'UX/UI design, Research',
+        users: '12,000 DAU'
+    },
+    {
+        title: '1C · Two design systems in a product with 30 years of legacy',
+        titleParts: ['1C', 'Two design systems in a product with 30 years of legacy'],
+        swapTitleStyles: true,
+        description: 'Coexisting old and new DS: migration rules, component compatibility, and handoff with engineering.',
+        image: 'images/case5.png',
+        imageAlt: '1C — two design systems',
+        role: 'Product designer',
+        stack: 'UX/UI design, Design systems, Research',
+        users: 'Global platform audience'
+    },
+    {
+        title: 'Growth.pet · Grooming salon: schedule and groomer tasks',
+        titleParts: ['Growth.pet', 'Grooming salon: schedule and groomer tasks'],
+        swapTitleStyles: true,
+        description: 'Connecting in-salon workflows with digital scheduling and tasks without UI overload.',
+        image: 'images/case6.png',
+        imageAlt: 'Growth.pet — grooming salon',
+        role: 'Product designer',
+        stack: 'UX/UI design, Research',
+        users: '8,000 DAU'
+    }
+];
+(function () {
+    var list = document.getElementById('casesList');
+    if (!list) return;
+    var renderTitle = function (item) {
+        if (item.titleParts && item.titleParts.length) {
+            var partsHtml = item.titleParts.map(function (p, i) {
+                var cls = i === 0 ? 'cases-article-title' : 'cases-article-title-part';
+                return '<span class="' + cls + '">' + (p || '') + '</span>';
+            }).join('');
+            var splitMods = 'cases-article-title cases-article-title--split';
+            if (item.swapTitleStyles) splitMods += ' cases-article-title--split--swap-styles';
+            return '<h3 class="' + splitMods + '">' + partsHtml + '</h3>';
+        }
+        return '<h3 class="cases-article-title">' + (item.title || '') + '</h3>';
+    };
+    var renderDescription = function (item) {
+        var text = item.description || '';
+        if (!text) return '';
+        return '<p class="cases-article-description">' + text + '</p>';
+    };
+    var metaItem = function (label, value) {
+        if (!value) return '';
+        return '<div class="cases-article-meta-item">' +
+            '<div class="cases-article-meta-label">' + label + '</div>' +
+            '<div class="cases-article-meta-value">' + value + '</div>' +
+            '</div>';
+    };
+    var renderCaseMeta = function (item, L) {
+        var role = item.role || '';
+        var stack = item.stack || '';
+        var users = item.users || '';
+        if (!role && !stack && !users) return '';
+        return '<div class="cases-article-meta-row">' +
+            metaItem(L.role, role) +
+            metaItem(L.stack, stack) +
+            metaItem(L.users, users) +
+            '</div>';
+    };
+    var buildTemplate = function (L) {
+        return function (item) {
+            return '<div class="cases-article-card">' +
+                '<div class="cases-article-body">' +
+                    renderTitle(item) +
+                    renderDescription(item) +
+                    renderCaseMeta(item, L) +
+                '</div>' +
+                '<div class="cases-article-image-wrap">' +
+                    '<img src="' + (item.image || '').replace(/"/g, '&quot;') + '" alt="' + String(item.imageAlt || item.title || '').replace(/"/g, '&quot;') + '">' +
+                    '<button type="button" class="cases-article-read-btn">' + L.read + '</button>' +
+                '</div>' +
+            '</div>';
+        };
+    };
+    window.renderCasesList = function () {
+        var lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+        var L = lang === 'en'
+            ? { role: 'Role', stack: 'Stack', users: 'Users', read: 'Read' }
+            : { role: 'Роль', stack: 'Стек', users: 'Пользователи', read: 'Читать' };
+        var cases = lang === 'en' ? window.CASES_EN : window.CASES;
+        list.innerHTML = cases.map(buildTemplate(L)).join('');
+    };
+    window.renderCasesList();
+})();
+(function () {
+    var TOGGLE_LABELS = {
+        ru: { expand: 'Показать полностью', collapse: 'Свернуть' },
+        en: { expand: 'Show more', collapse: 'Show less' }
+    };
+
+    function getLang() {
+        return document.documentElement.lang === 'en' ? 'en' : 'ru';
+    }
+
+    function updateButtonText(card, button) {
+        var lang = getLang();
+        var labels = TOGGLE_LABELS[lang];
+        var expanded = card.classList.contains('is-expanded');
+        button.textContent = expanded ? labels.collapse : labels.expand;
+    }
+
+    function initRecommendationCard(card) {
+        if (!card || card.hasAttribute('data-collapsible-ready')) return;
+        var textEl = card.querySelector('.recommendation-text');
+        if (!textEl) return;
+
+        card.classList.add('is-collapsed');
+        card.classList.remove('is-expanded');
+
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'recommendation-toggle';
+        button.setAttribute('aria-expanded', 'false');
+        updateButtonText(card, button);
+
+        button.addEventListener('click', function () {
+            var expanded = card.classList.toggle('is-expanded');
+            card.classList.toggle('is-collapsed', !expanded);
+            button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            updateButtonText(card, button);
+        });
+
+        card.appendChild(button);
+        card.setAttribute('data-collapsible-ready', 'true');
+    }
+
+    function initAllRecommendationCards() {
+        document.querySelectorAll('.recommendation-card').forEach(initRecommendationCard);
+    }
+
+    function refreshAllButtons() {
+        document.querySelectorAll('.recommendation-card .recommendation-toggle').forEach(function (button) {
+            var card = button.closest('.recommendation-card');
+            if (!card) return;
+            updateButtonText(card, button);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initAllRecommendationCards();
+        refreshAllButtons();
+        document.querySelectorAll('.recommendation-email[href^="mailto:"]').forEach(function (link) {
+            link.addEventListener('click', function () {
+                var href = link.getAttribute('href');
+                if (!href) return;
+                window.location.href = href;
+            });
+        });
+    });
+    window.addEventListener('site-lang-change', refreshAllButtons);
+})();
+</script>
+<script src="cases-full.js"></script>
+<script src="cases-full-en.js"></script>
+<script src="case-popup.js"></script>
+<section class="careers-section" id="careers">
+    <h2 data-i18n="careersTitle">Карьера</h2>
+    <div class="careers-list" id="careers-list">
+        <div class="lang-panel" data-lang-panel="ru">
+        <div class="career-item">
+            <div class="career-period">Май 2026 — Октябрь 2026</div>
+            <div class="career-position">Продуктовый дизайнер (Дизайн‑система) в <a href="https://finance.ozon.ru/" target="_blank" rel="noopener noreferrer">Ozon Bank</a></div>
+            <div class="career-description">
+                <ul>
+                    <li>Работал с брендом и восприятием дизайн‑системы</li>
+                    <li>Проводил встречи и мероприятия для продуктовых дизайнеров</li>
+                    <li>Зарефакторил основные компоненты дизайн‑системы и проектировал новые</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">Февраль 2025 — Март 2026</div>
+            <div class="career-position">Старший продуктовый дизайнер в <a href="https://1c.ru/" target="_blank" rel="noopener noreferrer">1С</a></div>
+            <div class="career-description">
+                <ul>
+                    <li>Провёл ревью более 500 форм в разных библиотеках</li>
+                    <li>Сократил время на работу с малыми формами с 14 до 11 секунд</li>
+                    <li>Перепроектировал всю дизайн‑систему 8.5 с учётом редизайна (MVP)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">Август 2023 — Февраль 2025</div>
+            <div class="career-position">Старший продуктовый дизайнер в <a href="https://toyou.io/" target="_blank" rel="noopener noreferrer">ToYou</a> (KSA)</div>
+            <div class="career-description">
+                <ul>
+                    <li>Спроектировал новый лендинг с упором на data‑driven SEO</li>
+                    <li>Снизили количество ответов техподдержкой вручную</li>
+                    <li>Среднюю цену обращения в техподдержку снизил с 1,3&nbsp;$ до 0,2&nbsp;$</li>
+                    <li>Внедрил аллергены и КБЖУ в каталог</li>
+                    <li>Сделали много полезных фич для водителя‑курьера: автовывод заработка, тепловая карта заказов и др.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">Апрель 2023 — Август 2023</div>
+            <div class="career-position">Старший продуктовый дизайнер в Growth.pet</div>
+            <div class="career-description">
+                <ul>
+                    <li>Улучшил флоу работы для администратора груминг‑салона</li>
+                    <li>Добавили умную систему записи к грумеру, запреты и прививки</li>
+                    <li>Спроектировал кросс‑платформенный мессенджер</li>
+                    <li>Внедрили тэговый подход к работе с клиентом по всей системе</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">Ноябрь 2022 — Апрель 2023</div>
+            <div class="career-position">Продуктовый дизайнер в <a href="https://salebot.pro/" target="_blank" rel="noopener noreferrer">Salebot</a></div>
+            <div class="career-description">
+                <ul>
+                    <li>Провёл более 120 пользовательских интервью</li>
+                    <li>Сократил количество «пустых» нажатий в конструкторе на 41%</li>
+                    <li>Спроектировал с нуля конструктор обучающих продуктов (инфобиз)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">Февраль 2021 — Ноябрь 2022</div>
+            <div class="career-position">Продуктовый дизайнер в <a href="https://mosreg.ru/" target="_blank" rel="noopener noreferrer">Правительстве Московской обл.</a></div>
+            <div class="career-description">
+                <ul>
+                    <li>Руководил доработкой системы Портал ЕАСУЗ для граждан</li>
+                    <li>Увеличили количество тендерных заявок через наш агрегатор в 2,3 раза</li>
+                    <li>Улучшали внутренние метрики (обращения в ТП, количество ошибочных заполнений, количество отклонений)</li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <div class="lang-panel" data-lang-panel="en" hidden>
+        <div class="career-item">
+            <div class="career-period">May 2026 - October 2026</div>
+            <div class="career-position">Product Designer (Design System) at <a href="https://finance.ozon.ru/" target="_blank" rel="noopener noreferrer">Ozon Bank</a></div>
+            <div class="career-description">
+                <ul>
+                    <li>Worked on the design system brand and perception</li>
+                    <li>Ran meetings and events for product designers</li>
+                    <li>Refactored core design system components and designed new ones</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">February 2025 - March 2026</div>
+            <div class="career-position">Senior Product Designer at <a href="https://1c.ru/" target="_blank" rel="noopener noreferrer">1C</a> (as part of collaboration with <a href="https://v8.1c.ru/platforma/new-ui-85/" target="_blank" rel="noopener noreferrer">aic</a>)</div>
+            <div class="career-description">
+                <ul>
+                    <li>Conducted a review of over 500 forms across various libraries</li>
+                    <li>Reduced time spent on small forms from 14 to 11 seconds</li>
+                    <li>Redesigned the entire 8.5 design system taking into account the redesign (MVP)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">August 2023 - February 2025</div>
+            <div class="career-position">Senior Product Designer at <a href="https://toyou.io/" target="_blank" rel="noopener noreferrer">ToYou</a> (KSA)</div>
+            <div class="career-description">
+                <ul>
+                    <li>Designed a new landing page with a focus on data-driven SEO</li>
+                    <li>Reduced the number of manual tech support responses</li>
+                    <li>Reduced the average cost of tech support inquiries from 1.3&nbsp;$ to 0.2&nbsp;$</li>
+                    <li>Implemented allergens and nutritional info in the catalog</li>
+                    <li>Added many useful features for driver-couriers, such as auto-earnings withdrawal, order heatmap, and more.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">April 2023 - August 2023</div>
+            <div class="career-position">Senior Product Designer at Growth.pet</div>
+            <div class="career-description">
+                <ul>
+                    <li>Improved the admin flow for grooming salon administrators</li>
+                    <li>Added a smart booking system for groomers, bans, and vaccinations</li>
+                    <li>Designed a cross-platform messenger</li>
+                    <li>Implemented a tagging approach to working with clients across the system</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">November 2022 - April 2023</div>
+            <div class="career-position">Product Designer at <a href="https://salebot.pro/" target="_blank" rel="noopener noreferrer">Salebot</a></div>
+            <div class="career-description">
+                <ul>
+                    <li>Conducted over 120 user interviews</li>
+                    <li>Reduced the number of &quot;empty&quot; clicks in the constructor by 41%</li>
+                    <li>Designed a constructor for educational products from scratch (infobusiness)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="career-item">
+            <div class="career-period">February 2021 - November 2022</div>
+            <div class="career-position">Product Designer at the <a href="https://mosreg.ru/" target="_blank" rel="noopener noreferrer">Government of Moscow Region</a></div>
+            <div class="career-description">
+                <ul>
+                    <li>Led the refinement of the EARSUZ Portal system for citizens</li>
+                    <li>Increased the number of tender applications through our aggregator by 2.3 times</li>
+                    <li>Improved internal metrics (tech support inquiries, erroneous submissions, rejections)</li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<section class="images-section" id="works">
+    <div class="images-section-heading">
+        <h2 data-i18n="worksTitle">Работы</h2>
+    </div>
+    <div class="images-section-wrapper">
+        <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
+        <div class="image-frame"><img src="images/bento/2.png" alt="Работа 2"></div>
+        <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
+        <div class="image-frame image-frame--fit"><img src="images/bento/4.png" alt="Работа 4"></div>
+        <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
+        <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
+        <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
+        <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
+        <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
+        <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
+        <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
+        <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
+        <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
+        <!-- Дублируем для бесшовного скролла -->
+        <div class="image-frame"><img src="images/bento/1.png" alt="Работа 1"></div>
+        <div class="image-frame"><img src="images/bento/2.png" alt="Работа 2"></div>
+        <div class="image-frame"><img src="images/bento/3.png" alt="Работа 3"></div>
+        <div class="image-frame image-frame--fit"><img src="images/bento/4.png" alt="Работа 4"></div>
+        <div class="image-frame"><img src="images/bento/5.png" alt="Работа 5"></div>
+        <div class="image-frame"><img src="images/bento/6.png" alt="Работа 6"></div>
+        <div class="image-frame"><img src="images/bento/7.png" alt="Работа 7"></div>
+        <div class="image-frame"><img src="images/bento/9.png" alt="Работа 9"></div>
+        <div class="image-frame"><img src="images/bento/10.png" alt="Работа 10"></div>
+        <div class="image-frame"><img src="images/bento/11.png" alt="Работа 11"></div>
+        <div class="image-frame"><img src="images/bento/12.png" alt="Работа 12"></div>
+        <div class="image-frame"><img src="images/bento/13.png" alt="Работа 13"></div>
+        <div class="image-frame"><img src="images/bento/14.png" alt="Работа 14"></div>
+    </div>
+</section>
+
+<section class="recommendations-section" id="recommendations">
+    <h2 data-i18n="recTitle">Рекомендации коллег</h2>
+    <div class="recommendations-list" id="recommendations-list">
+        <div class="lang-panel" data-lang-panel="ru">
+        <div class="recommendation-card">
+            <div class="recommendation-header">
+                <div class="recommendation-avatar">
+                    <img src="images/ekaterinaavatar.png" alt="Ekaterina Zhulkova" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #c1c6d1 0%, #7788ad 100%); display: none;"></div>
+                </div>
+                <div class="recommendation-info">
+                    <div class="recommendation-name">Ekaterina Zhulkova</div>
+                    <div class="recommendation-title">Director of Operations in Tech @ ToYou</div>
+                    <a href="mailto:e.zhulkova@arammeem.com" class="recommendation-email">e.zhulkova@arammeem.com</a>
+                </div>
+            </div>
+            <div class="recommendation-text">
+                <p>Нохрин Сергей работал под моим руководством как Senior Product Designer в команде Operations в ToYou (Aram Meem LLC). За почти два года работы с нами Сергей постоянно демонстрировал высокий уровень профессионализма, креативности и вовлечённости в создание пользовательских решений. Его работа заметно повлияла как на внутренние операционные процессы, так и на общий пользовательский опыт. Он был активным сторонником подхода, что улучшение UX внутренних систем напрямую усиливает клиентский опыт (CX), и последовательно применял это на практике.</p>
+                <p>Одна из ключевых сильных сторон Сергея — глубокое техническое понимание того, как работает продукт «под капотом», благодаря чему взаимодействие с разработчиками было особенно эффективным. Многие инженеры отмечали, насколько легко и приятно работать с его макетами: они были понятными, последовательными и технически реализуемыми. Это редкое сочетание сильного дизайна, технического бэкграунда и понимания бизнеса сделало Сергея важным мостом между дизайном, разработкой и продуктом. Кроме того, у Сергея отлично развита эмпатия к пользователям — будь то курьер на линии или специалист поддержки, разбирающийся со сложной заявкой. Его способность учитывать потребности разных групп пользователей значительно усилила общий UX продукта.</p>
+                <p>Его коммуникативные навыки и внимательное отношение к обратной связи сделали Сергея очень уважаемым и ценным членом команды. Команда до сих пор вспоминает его и результаты его работы. Уверена, что Сергей принесёт такой же высокий уровень экспертизы и профессионализма в любую компанию, к которой присоединится.</p>
+            </div>
+        </div>
+
+        <div class="recommendation-card">
+            <div class="recommendation-header">
+                <div class="recommendation-avatar">
+                    <img src="images/dmitiryavatar.png" alt="Dmitry Savich" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #c1c6d1 0%, #7788ad 100%); display: none;"></div>
+                </div>
+                <div class="recommendation-info">
+                    <div class="recommendation-name">Dmitry Savich</div>
+                    <div class="recommendation-title">Product Owner @ ToYou</div>
+                    <a href="mailto:dima@savich.me" class="recommendation-email">dima@savich.me</a>
+                </div>
+            </div>
+            <div class="recommendation-text">
+                <p>Я с удовольствием рекомендую Сергея Нохрина, который почти два года работал Senior Product Designer в ToYou (Aram Meem LLC). За это время мы плотно сотрудничали в команде BX (Business Experience).</p>
+                <p>Мы вместе делали довольно сложные фичи, особенно вокруг продуктового каталога, и вклад Сергея был критически важен для их успеха. У него есть редкий навык — превращать сложные требования в дизайны, которые одновременно и понятны пользователю, и удобны для разработки. Разработчики в команде не раз отмечали, насколько легко реализовывать его решения: всё структурировано, логично и технически выполнимо.</p>
+                <p>На самом деле, даже сейчас, когда мы работаем над новыми задачами, в команде до сих пор звучат фразы вроде: «Сергей бы это классно сделал» или «Вот это — прям история уровня Сергея». Его планка по качеству работы до сих пор задаёт ориентир, и влияние его вклада ощутимо до сих пор.</p>
+            </div>
+        </div>
+        </div>
+        <div class="lang-panel" data-lang-panel="en" hidden>
+        <div class="recommendation-card">
+            <div class="recommendation-header">
+                <div class="recommendation-avatar">
+                    <img src="images/ekaterinaavatar.png" alt="Ekaterina Zhulkova" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #c1c6d1 0%, #7788ad 100%); display: none;"></div>
+                </div>
+                <div class="recommendation-info">
+                    <div class="recommendation-name">Ekaterina Zhulkova</div>
+                    <div class="recommendation-title">Director of Operations in Tech @ ToYou</div>
+                    <a href="mailto:e.zhulkova@arammeem.com" class="recommendation-email">e.zhulkova@arammeem.com</a>
+                </div>
+            </div>
+            <div class="recommendation-text">
+                <p>Sergey Nokhrin worked under my leadership as Senior Product Designer on the Operations team at ToYou (Aram Meem LLC). For almost two years he consistently showed strong professionalism, creativity, and commitment to user-centered solutions. His work impacted both internal operations and the overall user experience. He championed the idea that improving UX for internal tools directly strengthens customer experience (CX) and applied it in practice.</p>
+                <p>One of Sergey’s strongest strengths is deep technical understanding of how the product works “under the hood,” which made collaboration with engineering especially effective. Engineers often said his designs were easy to understand, consistent, and feasible to build—a rare mix of design craft, technical background, and business sense that made him a bridge between design, engineering, and product. He also has strong empathy for users—whether a courier on the line or a support specialist handling a tricky ticket.</p>
+                <p>His communication skills and openness to feedback made him a valued teammate. The team still remembers him and his work. I am confident he will bring the same level of expertise to any company he joins.</p>
+            </div>
+        </div>
+
+        <div class="recommendation-card">
+            <div class="recommendation-header">
+                <div class="recommendation-avatar">
+                    <img src="images/dmitiryavatar.png" alt="Dmitry Savich" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #c1c6d1 0%, #7788ad 100%); display: none;"></div>
+                </div>
+                <div class="recommendation-info">
+                    <div class="recommendation-name">Dmitry Savich</div>
+                    <div class="recommendation-title">Product Owner @ ToYou</div>
+                    <a href="mailto:dima@savich.me" class="recommendation-email">dima@savich.me</a>
+                </div>
+            </div>
+            <div class="recommendation-text">
+                <p>I’m happy to recommend Sergey Nokhrin, who worked for almost two years as Senior Product Designer at ToYou (Aram Meem LLC). We collaborated closely on the BX (Business Experience) team.</p>
+                <p>We shipped complex features together, especially around the product catalog, and Sergey’s contribution was critical. He has a rare skill: turning complex requirements into designs that are clear for users and practical for developers. Developers repeatedly noted how straightforward his work was to implement—structured, logical, and technically sound.</p>
+                <p>Even on new work, people still say things like “Sergey would have nailed this” or “that’s Sergey-level quality.” His bar for quality remains a reference point.</p>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<section class="hobbies-section" id="hobbies">
+    <h2 data-i18n="hobbiesTitle">Хобби</h2>
+    <div class="hobbies-list">
+        <div class="hobby-card">
+            <div data-i18n="hobbyPowerlifting">Занимаюсь пауэрлифтингом, имею звание КМС по становой тяге и жиму (soft экипировка).</div>
+            <div class="hobby-photos">
+                <figure class="hobby-photo">
+                    <img src="images/hobby-powerlifting-team.jpg" alt="Команда на соревнованиях по пауэрлифтингу" data-i18n-alt="hobbyPhotoAlt1">
+                </figure>
+                <figure class="hobby-photo">
+                    <img src="images/hobby-powerlifting-competition.jpg" alt="Соревнование по становой тяге" data-i18n-alt="hobbyPhotoAlt2">
+                </figure>
+            </div>
+        </div>
+        <div class="hobby-card">
+            <div data-i18n="hobbyCooking">Люблю готовить и пишу о еде и рецептах тут <a href="https://t.me/belazyandcook" target="_blank" rel="noopener noreferrer">https://t.me/belazyandcook</a></div>
+            <div class="hobby-photos hobby-photos--cooking">
+                <figure class="hobby-photo">
+                    <img src="images/hobby-cooking-1.jpg" alt="Салат с прошутто и грушей" data-i18n-alt="hobbyCookingAlt1">
+                </figure>
+                <figure class="hobby-photo">
+                    <img src="images/hobby-cooking-2.jpg" alt="Домашнее блюдо с курицей и крупой" data-i18n-alt="hobbyCookingAlt2">
+                </figure>
+                <figure class="hobby-photo">
+                    <img src="images/hobby-cooking-3.jpg" alt="Паста в соусе" data-i18n-alt="hobbyCookingAlt3">
+                </figure>
+                <figure class="hobby-photo">
+                    <img src="images/hobby-cooking-4.jpg" alt="Гренки на сковороде" data-i18n-alt="hobbyCookingAlt4">
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer-nav" data-i18n-aria="footerNavLabel" aria-label="Ссылки в подвале">
+    <nav class="site-nav site-nav--centered">
+        <a href="https://t.me/sergeyflaer" target="_blank" rel="noopener noreferrer" class="site-nav-btn">Telegram</a>
+        <a href="https://www.linkedin.com/in/sergeyflaer/" target="_blank" rel="noopener noreferrer" class="site-nav-btn">LinkedIn</a>
+        <a href="mailto:sergeyflaer@gmail.com" class="site-nav-btn">E-mail</a>
+        <a href="CV Продуктовый Дизайнер - Нохрин Сергей Евгеньевич.pdf" download class="site-nav-btn" data-cv-ru="CV Продуктовый Дизайнер - Нохрин Сергей Евгеньевич.pdf" data-cv-en="CV Product Designer - Nokhrin Sergey.pdf">CV</a>
+        <a href="en/for-agents.html" class="site-nav-btn">For Agents</a>
+    </nav>
+</footer>
+
+<div class="image-lightbox-overlay" id="imageLightboxOverlay" aria-hidden="true">
+    <button type="button" class="case-popup-close image-lightbox-close" id="imageLightboxClose" aria-label="Закрыть" data-i18n-aria="close">×</button>
+    <div class="image-lightbox-content" id="imageLightboxContent">
+        <img id="imageLightboxImage" src="" alt="">
+    </div>
+</div>
+
+<script>
+(function () {
+    var SITE_I18N = {
+        ru: {
+            pageTitle: 'Сергей Нохрин — портфолио',
+            logoAlt: 'Сергей Нохрин',
+            heroName: 'Меня зовут Сергей Нохрин',
+            heroTagline: 'проектирую интерфейсы уже&nbsp;более&nbsp;5&nbsp;лет',
+            careersTitle: 'Карьера',
+            worksTitle: 'Работы',
+            recTitle: 'Рекомендации коллег',
+            hobbiesTitle: 'Хобби',
+            hobbyPowerlifting: 'Занимаюсь пауэрлифтингом, имею звание КМС по становой тяге и жиму (soft экипировка).',
+            hobbyCooking: 'Люблю готовить и пишу о еде и рецептах тут <a href="https://t.me/belazyandcook" target="_blank" rel="noopener noreferrer">https://t.me/belazyandcook</a>.',
+            hobbyPhotoAlt1: 'Команда на соревнованиях по пауэрлифтингу',
+            hobbyPhotoAlt2: 'Соревнование по становой тяге',
+            hobbyCookingAlt1: 'Салат с прошутто и грушей',
+            hobbyCookingAlt2: 'Домашнее блюдо с курицей и крупой',
+            hobbyCookingAlt3: 'Паста в соусе',
+            hobbyCookingAlt4: 'Гренки на сковороде',
+            close: 'Закрыть',
+            casePrev: 'Предыдущий кейс',
+            caseNext: 'Следующий кейс',
+            adhdLabel: 'Режим СДВГ',
+            footerNavLabel: 'Ссылки в подвале',
+            workAltPrefix: 'Работа '
+        },
+        en: {
+            pageTitle: 'Sergey Nokhrin — Portfolio',
+            logoAlt: 'Sergey Nokhrin',
+            heroName: 'My name is Sergey Nokhrin',
+            heroTagline: 'I have been designing interfaces for over 5 years',
+            careersTitle: 'Experience',
+            worksTitle: 'Work',
+            recTitle: 'Colleague recommendations',
+            hobbiesTitle: 'Hobbies',
+            hobbyPowerlifting: 'I do powerlifting and hold the Candidate Master of Sports title in deadlift and bench press (soft equipment).',
+            hobbyCooking: 'I enjoy cooking and write about food and recipes here: <a href="https://t.me/belazyandcook" target="_blank" rel="noopener noreferrer">https://t.me/belazyandcook</a>.',
+            hobbyPhotoAlt1: 'Team photo at a powerlifting event',
+            hobbyPhotoAlt2: 'Deadlift competition attempt',
+            hobbyCookingAlt1: 'Salad with prosciutto and pear',
+            hobbyCookingAlt2: 'Homemade dish with chicken and grains',
+            hobbyCookingAlt3: 'Pasta in sauce',
+            hobbyCookingAlt4: 'Toasted bread in a pan',
+            close: 'Close',
+            casePrev: 'Previous case',
+            caseNext: 'Next case',
+            adhdLabel: 'ADHD mode',
+            footerNavLabel: 'Footer links',
+            workAltPrefix: 'Work '
+        }
+    };
+
+    function applySiteLang(lang) {
+        var D = SITE_I18N[lang];
+        if (!D) return;
+        var targetPath = lang === 'en' ? '/en' : '/';
+        if (window.location.pathname.replace(/\/+$/, '') !== targetPath.replace(/\/+$/, '')) {
+            window.history.pushState({ lang: lang }, '', targetPath);
+        }
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('siteLang', lang); } catch (e) {}
+
+        document.querySelectorAll('.lang-switch-btn[data-set-lang]').forEach(function (btn) {
+            var isActive = btn.getAttribute('data-set-lang') === lang;
+            btn.classList.toggle('is-active', isActive);
+            btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+            var k = el.getAttribute('data-i18n');
+            if (D[k] != null) el.innerHTML = D[k];
+        });
+        document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+            var k = el.getAttribute('data-i18n-alt');
+            if (D[k] != null) el.setAttribute('alt', D[k]);
+        });
+        document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+            var k = el.getAttribute('data-i18n-aria');
+            if (D[k] != null) el.setAttribute('aria-label', D[k]);
+        });
+
+        document.querySelectorAll('a[data-cv-ru][data-cv-en]').forEach(function (el) {
+            var fn = lang === 'en' ? el.getAttribute('data-cv-en') : el.getAttribute('data-cv-ru');
+            if (fn) el.setAttribute('href', fn);
+        });
+
+        var pt = document.getElementById('pageTitle');
+        if (pt && D.pageTitle) pt.textContent = D.pageTitle;
+        document.title = D.pageTitle || document.title;
+
+        document.querySelectorAll('[data-lang-panel]').forEach(function (el) {
+            el.hidden = el.getAttribute('data-lang-panel') !== lang;
+        });
+
+        var worksImgs = document.querySelectorAll('#works .images-section-wrapper img');
+        for (var wi = 0; wi < worksImgs.length; wi++) {
+            worksImgs[wi].setAttribute('alt', D.workAltPrefix + (wi % 14 + 1));
+        }
+
+        if (typeof window.renderCasesList === 'function') window.renderCasesList();
+        window.dispatchEvent(new CustomEvent('site-lang-change'));
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.lang-switch-btn[data-set-lang]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                applySiteLang(btn.getAttribute('data-set-lang'));
+            });
+        });
+        window.addEventListener('popstate', function () {
+            applySiteLang(window.location.pathname.replace(/\/+$/, '') === '/en' ? 'en' : 'ru');
+        });
+        var menu = document.getElementById('mobileMenu');
+        var menuToggle = document.getElementById('menuToggle');
+        var menuClose = document.getElementById('menuClose');
+        function openMenu() {
+            document.documentElement.classList.add('menu-open');
+            if (menu) menu.setAttribute('aria-hidden', 'false');
+        }
+        function closeMenu() {
+            document.documentElement.classList.remove('menu-open');
+            if (menu) menu.setAttribute('aria-hidden', 'true');
+        }
+        if (menuToggle) menuToggle.addEventListener('click', openMenu);
+        if (menuClose) menuClose.addEventListener('click', closeMenu);
+        if (menu) {
+            menu.addEventListener('click', function (e) {
+                if (e.target === menu || e.target.closest('.site-nav-btn')) closeMenu();
+            });
+        }
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeMenu();
+        });
+        var saved = null;
+        try { saved = localStorage.getItem('siteLang'); } catch (e) {}
+        if (saved === 'en' || saved === 'ru') applySiteLang(saved);
+        else applySiteLang('ru');
+    });
+})();
+(function () {
+    var el = document.getElementById('heroSubtitle');
+    if (!el) return;
+    var lastScrollY = window.scrollY || window.pageYOffset;
+    function onScroll() {
+        var scrollY = window.scrollY || window.pageYOffset;
+        var scrollingDown = scrollY > lastScrollY;
+        var rect = el.getBoundingClientRect();
+        var inView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (scrollingDown && inView) {
+            el.classList.add('is-in-view');
+        } else if (!scrollingDown) {
+            el.classList.remove('is-in-view');
+        }
+        lastScrollY = scrollY;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+})();
+(function () {
+    var wrap = document.getElementById('avatarWrap');
+    var emoji = document.getElementById('avatarEmoji');
+    if (!wrap || !emoji) return;
+    wrap.addEventListener('mouseenter', function () {
+        emoji.textContent = '🖐';
+    });
+    wrap.addEventListener('click', function () {
+        emoji.textContent = emoji.textContent === '🖐' ? '👏' : '🖐';
+        var rect = wrap.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var container = document.createElement('div');
+        container.className = 'confetti-container';
+        document.body.appendChild(container);
+        var count = 25;
+        var removed = 0;
+        function onEnd() {
+            removed++;
+            if (removed >= count) container.remove();
+        }
+        for (var i = 0; i < count; i++) {
+            var piece = document.createElement('span');
+            piece.className = 'confetti-piece';
+            piece.textContent = '👏';
+            var angle = Math.random() * Math.PI * 2;
+            var dist = 90 + Math.random() * 140;
+            var tx = Math.cos(angle) * dist;
+            var ty = Math.sin(angle) * dist;
+            piece.style.setProperty('--tx', tx + 'px');
+            piece.style.setProperty('--ty', ty + 'px');
+            piece.style.setProperty('--r', (Math.random() > 0.5 ? 15 : -15) + 'deg');
+            piece.style.left = cx + 'px';
+            piece.style.top = cy + 'px';
+            piece.style.marginLeft = '-0.5em';
+            piece.style.marginTop = '-0.5em';
+            var size = 18 + Math.random() * 20;
+            piece.style.fontSize = size + 'px';
+            piece.style.animationDelay = (Math.random() * 0.08) + 's';
+            piece.style.animationDuration = (1.8 + Math.random() * 0.7) + 's';
+            piece.addEventListener('animationend', onEnd);
+            container.appendChild(piece);
+        }
+    });
+})();
+(function () {
+    var imageLightboxOverlay = document.getElementById('imageLightboxOverlay');
+    var imageLightboxImage = document.getElementById('imageLightboxImage');
+    var imageLightboxContent = document.getElementById('imageLightboxContent');
+    var bentoFitScreenNumbers = [1, 3, 4, 9, 10, 11, 12, 14];
+    var lightboxZoomScale = 1;
+    function openImageLightbox(src, fromBento, fromCase1C) {
+        if (!imageLightboxImage || !imageLightboxOverlay) return;
+        imageLightboxOverlay.classList.remove('is-tall', 'is-fit-screen', 'is-zoomable');
+        imageLightboxImage.style.width = '';
+        imageLightboxImage.style.height = '';
+        imageLightboxImage.style.transform = '';
+        lightboxZoomScale = 1;
+        var forceFitScreen = fromBento && bentoFitScreenNumbers.some(function (n) {
+            return src.indexOf('bento/' + n + '.png') !== -1 || src.indexOf('bento/' + n + '.PNG') !== -1;
+        });
+        if (forceFitScreen) imageLightboxOverlay.classList.add('is-fit-screen');
+        if (fromCase1C) imageLightboxOverlay.classList.add('is-zoomable');
+        imageLightboxImage.onload = function () {
+            imageLightboxImage.onload = null;
+            if (imageLightboxOverlay.classList.contains('is-zoomable')) {
+                applyLightboxZoom();
+            }
+            if (!fromBento || forceFitScreen) return;
+            var nw = imageLightboxImage.naturalWidth;
+            var nh = imageLightboxImage.naturalHeight;
+            if (!nw || !nh) return;
+            var heightAt1440 = (1440 / nw) * nh;
+            if (heightAt1440 > window.innerHeight) {
+                imageLightboxOverlay.classList.add('is-tall');
+            }
+        };
+        imageLightboxImage.src = src;
+        imageLightboxOverlay.classList.add('is-open');
+        imageLightboxOverlay.setAttribute('aria-hidden', 'false');
+        document.documentElement.classList.add('popup-open');
+        document.body.style.overflow = 'hidden';
+        if (imageLightboxImage.complete) imageLightboxImage.onload();
+    }
+    function closeImageLightbox() {
+        if (imageLightboxOverlay) {
+            imageLightboxOverlay.classList.remove('is-open', 'is-tall', 'is-fit-screen', 'is-zoomable');
+            imageLightboxOverlay.setAttribute('aria-hidden', 'true');
+        }
+        document.documentElement.classList.remove('popup-open');
+        document.body.style.overflow = '';
+        if (imageLightboxImage) {
+            imageLightboxImage.style.width = '';
+            imageLightboxImage.style.height = '';
+            imageLightboxImage.style.transform = '';
+        }
+        lightboxZoomScale = 1;
+    }
+    function applyLightboxZoom() {
+        if (!imageLightboxImage || !imageLightboxOverlay.classList.contains('is-zoomable')) return;
+        var nw = imageLightboxImage.naturalWidth;
+        var nh = imageLightboxImage.naturalHeight;
+        if (!nw || !nh) return;
+        var maxW = (imageLightboxContent && imageLightboxContent.clientWidth) || (window.innerWidth - 48);
+        var maxH = window.innerHeight - 96;
+        var fitScale = Math.min(1, maxW / nw, maxH / nh);
+        var baseW = nw * fitScale;
+        var baseH = nh * fitScale;
+        imageLightboxImage.style.width = (baseW * lightboxZoomScale) + 'px';
+        imageLightboxImage.style.height = (baseH * lightboxZoomScale) + 'px';
+    }
+    var LIGHTBOX_ZOOM_LEVELS = [1, 1.2, 1.5, 1.75, 2, 2.4];
+    var lightboxDragging = false;
+    var lightboxDragStartX = 0;
+    var lightboxDragStartY = 0;
+    var lightboxDragScrollLeft = 0;
+    var lightboxDragScrollTop = 0;
+    function onLightboxMouseDown(e) {
+        if (!imageLightboxOverlay.classList.contains('is-open') || !imageLightboxOverlay.classList.contains('is-zoomable')) return;
+        if (e.target !== imageLightboxImage) return;
+        e.preventDefault();
+        lightboxDragging = false;
+        lightboxDragStartX = e.clientX;
+        lightboxDragStartY = e.clientY;
+        lightboxDragScrollLeft = imageLightboxContent.scrollLeft;
+        lightboxDragScrollTop = imageLightboxContent.scrollTop;
+        document.body.style.cursor = 'grabbing';
+        document.body.style.userSelect = 'none';
+        document.addEventListener('mousemove', onLightboxMouseMove);
+        document.addEventListener('mouseup', onLightboxMouseUp);
+    }
+    function onLightboxMouseMove(e) {
+        var dx = e.clientX - lightboxDragStartX;
+        var dy = e.clientY - lightboxDragStartY;
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) lightboxDragging = true;
+        imageLightboxContent.scrollLeft = Math.max(0, Math.min(lightboxDragScrollLeft - dx, imageLightboxContent.scrollWidth - imageLightboxContent.clientWidth));
+        imageLightboxContent.scrollTop = Math.max(0, Math.min(lightboxDragScrollTop - dy, imageLightboxContent.scrollHeight - imageLightboxContent.clientHeight));
+    }
+    function onLightboxMouseUp() {
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        document.removeEventListener('mousemove', onLightboxMouseMove);
+        document.removeEventListener('mouseup', onLightboxMouseUp);
+    }
+    var lastLightboxClickTime = 0;
+    var lightboxClickTimeout = null;
+    var LIGHTBOX_DBLCLICK_MS = 250;
+    if (imageLightboxImage && imageLightboxContent) {
+        imageLightboxImage.addEventListener('mousedown', onLightboxMouseDown);
+        imageLightboxImage.addEventListener('click', function (e) {
+            if (!imageLightboxOverlay.classList.contains('is-open') || !imageLightboxOverlay.classList.contains('is-zoomable')) return;
+            if (e.target !== imageLightboxImage) return;
+            if (lightboxDragging) {
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+            }
+            e.preventDefault();
+            e.stopPropagation();
+            var now = Date.now();
+            if (now - lastLightboxClickTime < LIGHTBOX_DBLCLICK_MS) {
+                if (lightboxClickTimeout) {
+                    clearTimeout(lightboxClickTimeout);
+                    lightboxClickTimeout = null;
+                }
+                lastLightboxClickTime = 0;
+                lightboxZoomScale = 1;
+                applyLightboxZoom();
+                imageLightboxContent.scrollLeft = 0;
+                imageLightboxContent.scrollTop = 0;
+                return;
+            }
+            lastLightboxClickTime = now;
+            if (lightboxClickTimeout) clearTimeout(lightboxClickTimeout);
+            lightboxClickTimeout = setTimeout(function () {
+                lightboxClickTimeout = null;
+                var oldScale = lightboxZoomScale;
+                var idx = LIGHTBOX_ZOOM_LEVELS.indexOf(oldScale);
+                if (idx === -1) idx = 0;
+                var nextIdx = Math.min(idx + 1, LIGHTBOX_ZOOM_LEVELS.length - 1);
+                var newScale = LIGHTBOX_ZOOM_LEVELS[nextIdx];
+                if (newScale <= oldScale) return;
+                var offsetX = e.offsetX;
+                var offsetY = e.offsetY;
+                lightboxZoomScale = newScale;
+                applyLightboxZoom();
+                var contentRect = imageLightboxContent.getBoundingClientRect();
+                var pointX = offsetX * (newScale / oldScale);
+                var pointY = offsetY * (newScale / oldScale);
+                var scrollLeft = pointX - (e.clientX - contentRect.left);
+                var scrollTop = pointY - (e.clientY - contentRect.top);
+                imageLightboxContent.scrollLeft = Math.max(0, Math.min(scrollLeft, imageLightboxContent.scrollWidth - imageLightboxContent.clientWidth));
+                imageLightboxContent.scrollTop = Math.max(0, Math.min(scrollTop, imageLightboxContent.scrollHeight - imageLightboxContent.clientHeight));
+            }, LIGHTBOX_DBLCLICK_MS);
+        });
+    }
+    var imagesSection = document.querySelector('.images-section');
+    if (imagesSection) {
+        imagesSection.addEventListener('click', function (e) {
+            var img = e.target.closest('.image-frame img');
+            if (!img) return;
+            e.preventDefault();
+            e.stopPropagation();
+            openImageLightbox(img.src, true, false);
+        });
+    }
+    var hobbiesSection = document.querySelector('.hobbies-section');
+    if (hobbiesSection) {
+        hobbiesSection.addEventListener('click', function (e) {
+            var img = e.target.closest('.hobby-photo img');
+            if (!img) return;
+            e.preventDefault();
+            e.stopPropagation();
+            openImageLightbox(img.src, false, false);
+        });
+    }
+    if (imageLightboxOverlay) {
+        imageLightboxOverlay.addEventListener('click', function (e) {
+            if (e.target === imageLightboxOverlay) closeImageLightbox();
+        });
+    }
+    var imageLightboxCloseBtn = document.getElementById('imageLightboxClose');
+    if (imageLightboxCloseBtn) {
+        imageLightboxCloseBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            closeImageLightbox();
+        });
+    }
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        if (imageLightboxOverlay && imageLightboxOverlay.classList.contains('is-open')) {
+            closeImageLightbox();
+        }
+    });
+})();
+</script>
+
+</body>
+</html>
+
+
+
+
