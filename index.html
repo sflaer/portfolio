@@ -25,7 +25,13 @@
         html::-webkit-scrollbar-track { background: var(--site-bg-gradient); }
         html::-webkit-scrollbar-thumb { background: #8F8F8F; border-radius: 4px; }
         html::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; margin: 0 auto 32px auto; padding: 0; cursor: url('images/cursor.png'), auto; line-height: 1.6; box-sizing: border-box; width: 100%; max-width: 1000px; background: transparent; color: #FFFFFF; min-height: 100vh; min-width: 0; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; margin: 0 auto 32px auto; padding: 0; cursor: url('images/cursor.png'), auto; line-height: 1.6; box-sizing: border-box; width: 100%; max-width: 1000px; background: transparent; color: #FFFFFF; min-height: 100vh; min-width: 0; position: relative; z-index: 1; }
+        .liquid-gradient-bg { position: fixed; inset: 0; z-index: -2; overflow: hidden; background: #000000; pointer-events: none; }
+        .liquid-gradient-bg::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(5,5,5,0.52), rgba(5,5,5,0.1) 50%, rgba(5,5,5,0.52)), radial-gradient(circle at 50% 20%, transparent 0%, rgba(0,0,0,0.28) 58%, rgba(0,0,0,0.74) 100%); }
+        .liquid-gradient-bg canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+        @media (prefers-reduced-motion: reduce) {
+            .liquid-gradient-bg canvas { opacity: 0.68; }
+        }
         a { color: #FFFFFF; cursor: url('images/cursor.png'), pointer; }
         a:hover { cursor: url('images/cursorhover.png'), pointer; }
         @keyframes avatar-float {
@@ -948,6 +954,7 @@
         </style>
 </head>
 <body>
+    <div class="liquid-gradient-bg" id="liquidGradientBg" aria-hidden="true"></div>
 
 <header class="site-header">
     <div class="site-header-brand">
@@ -2048,11 +2055,93 @@ window.CASES_EN = [
         }
     });
 })();
+    
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+    var mount = document.getElementById('liquidGradientBg');
+    if (!mount || !window.THREE) return;
+
+    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance', alpha: false, stencil: false, depth: false });
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+    var clock = new THREE.Clock();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(dpr);
+    camera.position.z = 50;
+    mount.appendChild(renderer.domElement);
+
+    var uniforms = {
+        uTime: { value: 0 },
+        uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        uSpeed: { value: reducedMotion ? 0.35 : 1.0 },
+        uColorBlack: { value: new THREE.Vector3(0, 0, 0) },
+        uColorGray: { value: new THREE.Vector3(0.5, 0.5, 0.5) },
+        uColorWhite: { value: new THREE.Vector3(1, 1, 1) }
+    };
+    var material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
+        fragmentShader: [
+            'precision highp float;',
+            'varying vec2 vUv;',
+            'uniform float uTime;',
+            'uniform float uSpeed;',
+            'uniform vec2 uResolution;',
+            'uniform vec3 uColorBlack;',
+            'uniform vec3 uColorGray;',
+            'uniform vec3 uColorWhite;',
+            'float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123); }',
+            'float noise(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f); return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y); }',
+            'vec3 gradient(vec2 uv,float t){',
+            '  vec2 p=uv-0.5; p.x*=uResolution.x/uResolution.y;',
+            '  float n=noise(uv*3.0+t*0.05)*0.15+noise(uv*7.0-t*0.03)*0.06;',
+            '  float wave=sin(uv.x*4.0+t*0.35)+cos(uv.y*3.0-t*0.25);',
+            '  float gray=smoothstep(-1.2,1.4,wave+n);',
+            '  float white=smoothstep(0.78,1.18,gray);',
+            '  float vignette=1.0-smoothstep(0.35,0.95,length(p));',
+            '  vec3 color=mix(uColorBlack,uColorGray,gray*0.82*vignette);',
+            '  return mix(color,uColorWhite,white*0.55);',
+            '}',
+            'void main(){',
+            '  vec2 uv=vUv;',
+            '  float dist=length(uv-0.5);',
+            '  float ripple=sin(dist*20.0-uTime*3.0)*0.018;',
+            '  float wave=sin(dist*15.0-uTime*2.0)*0.014;',
+            '  uv+=vec2(ripple+wave);',
+            '  vec3 color=gradient(uv,uTime*uSpeed);',
+            '  color+=((noise(gl_FragCoord.xy*0.7+uTime)-0.5)*0.025);',
+            '  gl_FragColor=vec4(clamp(color,0.0,1.0),1.0);',
+            '}'
+        ].join('\n')
+    });
+
+    var mesh = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), material);
+    scene.add(mesh);
+
+    function resize() {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        uniforms.uResolution.value.set(width, height);
+    }
+    function tick() {
+        var delta = Math.min(clock.getDelta(), 0.05);
+        uniforms.uTime.value += delta;
+        renderer.render(scene, camera);
+        requestAnimationFrame(tick);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    tick();
+})();
 </script>
 
 </body>
 </html>
-
-
-
-
